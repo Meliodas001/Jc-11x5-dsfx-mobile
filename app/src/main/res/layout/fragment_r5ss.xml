@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.jingcai.jc_11x5.ui.fragment.R5ssFragment">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_ssgl"
+        android:layout_below="@+id/layout_title"
+        android:layout_above="@+id/ll_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_btn"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_5"
+        android:layout_height="@dimen/layout_height_30"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_sstj"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rect"
+            android:visibility="visible"
+            android:layout_marginRight="@dimen/margin_5"
+            android:textSize="@dimen/text_size_12"
+            android:text="缩水条件查看"/>
+        <Button
+            android:id="@+id/btn_sstj_clean"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rect"
+            android:visibility="visible"
+            android:layout_marginRight="@dimen/margin_5"
+            android:textSize="@dimen/text_size_12"
+            android:text="条件清除"/>
+        <Button
+            android:id="@+id/btn_ssgl"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rect"
+            android:textSize="@dimen/text_size_12"
+            android:text="缩水过滤"/>
+    </LinearLayout>
+
+</RelativeLayout>

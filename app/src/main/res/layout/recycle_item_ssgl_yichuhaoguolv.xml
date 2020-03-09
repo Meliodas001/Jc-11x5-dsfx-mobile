@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_5"
+    android:layout_marginBottom="@dimen/margin_5"
+    android:layout_marginLeft="@dimen/margin_5"
+    android:layout_marginRight="@dimen/margin_5"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_mc"
+        android:layout_width="@dimen/layout_width_95"
+        android:layout_height="wrap_content"
+        android:text="已出号过滤"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:drawablePadding="@dimen/margin_3"
+        android:drawableBottom="@mipmap/divider"
+        android:drawableRight="@mipmap/icon_jieshi"
+        />
+
+    <LinearLayout
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_5"
+            android:text="最近" />
+
+        <EditText
+            android:id="@+id/et_set_qishu"
+            style="@style/edittext_commom_style_bjsz"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 期" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_5"
+            android:inputType="number"
+            android:text="已出" />
+
+        <EditText
+            android:id="@+id/et_set_cishu"
+            style="@style/edittext_commom_style_bjsz"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text=" 次   " />
+
+    </LinearLayout>
+
+</LinearLayout>

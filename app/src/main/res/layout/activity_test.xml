@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jingcai.jc_11x5.ui.activity.TestActivity">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_ormlite_delete"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="删除数据库"
+                style="@style/button_common_style_gray" />
+
+            <Button
+                android:id="@+id/btn_ormlite_clean"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="清除数据库"
+                style="@style/button_common_style_gray" />
+
+            <Button
+                android:id="@+id/btn_home_data"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="测试首页获取数据接口"
+                style="@style/button_common_style_gray"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_kj_data"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="测试最近百期开奖"
+                style="@style/button_common_style_gray"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_kjsj_data"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="获取彩票开奖时间和每天期数"
+                style="@style/button_common_style_gray"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_zyl_data"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="获取盈利周榜"
+                style="@style/button_common_style_gray"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/et_haoma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_clean"
+                android:background="@drawable/bg_layout"
+                android:layout_marginTop="@dimen/margin_5"
+                android:padding="@dimen/margin_10"
+                android:gravity="left"
+                android:minLines="6"
+                android:hint="请黏贴您复制的号码"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_size_14"/>
+
+            <Button
+                android:id="@+id/btn_haoma_data"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="获取盈利周榜"
+                style="@style/button_common_style_gray"
+                android:visibility="visible"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

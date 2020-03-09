@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_5"
+    android:layout_marginBottom="@dimen/margin_5"
+    android:layout_marginLeft="@dimen/margin_5"
+    android:layout_marginRight="@dimen/margin_5"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_mc"
+        android:layout_width="@dimen/layout_width_85"
+        android:layout_height="wrap_content"
+        android:text="连号"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:drawablePadding="@dimen/margin_3"
+        android:drawableBottom="@mipmap/divider"
+        android:drawableRight="@mipmap/icon_jieshi"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_linhao_1"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="完全不连"
+            android:textColor="@drawable/selector_color_red"/>
+        <TextView
+            android:id="@+id/tv_linhao_2"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="一个两连"
+            android:textColor="@drawable/selector_color_red"/>
+        <TextView
+            android:id="@+id/tv_linhao_3"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="两个两连"
+            android:textColor="@drawable/selector_color_red"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_3"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_linhao_4"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="只有三连"
+            android:textColor="@drawable/selector_color_red"/>
+        <TextView
+            android:id="@+id/tv_linhao_5"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="两连三连各一个"
+            android:textColor="@drawable/selector_color_red"/>
+        <TextView
+            android:id="@+id/tv_linhao_6"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="只有四连"
+            android:textColor="@drawable/selector_color_red"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_3"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_linhao_7"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_rect_red"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_3"
+            android:text="只有五连"
+            android:textColor="@drawable/selector_color_red"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="2"
+            android:layout_marginRight="@dimen/margin_3"
+            />
+    </LinearLayout>
+
+    <include
+        layout="@layout/recycle_item_ssgl_include_anniu2" />
+
+</LinearLayout>

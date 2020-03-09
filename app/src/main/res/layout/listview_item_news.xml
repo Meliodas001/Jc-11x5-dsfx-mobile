@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/btn_height_25"
+        android:layout_marginRight="@dimen/btn_height_25"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/news_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/gray"
+            android:paddingBottom="@dimen/margin_5"
+            android:text="2020-2-28 19:14:21"/>
+
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="@color/black"
+            android:paddingBottom="@dimen/margin_5"
+            android:text="APP里面所有有关"/>
+
+        <TextView
+            android:id="@+id/news_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/gray"
+            android:text="app桌面名称由“五彩中奖助手”改为：“无忧玩家”"/>
+    </LinearLayout>
+
+</LinearLayout>

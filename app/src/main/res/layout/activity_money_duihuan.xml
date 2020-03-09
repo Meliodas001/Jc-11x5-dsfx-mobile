@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_coin_duihuan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.jingcai.jc_11x5.ui.activity.CoinDuihuanActivity">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_coin_duihuan"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可用余额(元)"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18"/>
+        <TextView
+            android:id="@+id/tv_caibi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_52"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_jifen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/margin_15"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingBottom="@dimen/margin_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="兑换金额："
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18"/>
+
+            <EditText
+                android:id="@+id/et_dh_wuyoubi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="number"
+                android:hint="请输入兑换金额（元）"
+                android:textSize="@dimen/text_size_18"/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:background="@mipmap/divider" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_55"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/margin_15"
+        android:paddingLeft="@dimen/margin_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="1元可兑100无忧币"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/gray"
+            android:id="@+id/tv_dh_ratio"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="可兑无忧币："
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/tv_dh_yue"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_dh_yue"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin_15"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_dh_yue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_orange"
+        android:layout_margin="@dimen/margin_15"
+        android:text="确认兑换"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20"/>
+
+</LinearLayout>

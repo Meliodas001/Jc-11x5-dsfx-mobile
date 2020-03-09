@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--tab切换样式-->
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:state_enabled="true" android:drawable="@drawable/navi_background_top" />
+    <item android:state_enabled="false" android:drawable="@drawable/navi_background_top_focus" />-->
+
+  <item android:state_enabled="true" android:drawable="@mipmap/divider_gray" />
+  <item android:state_enabled="false" android:drawable="@mipmap/divider_red" />
+
+</selector>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color> <!-- 白色 -->
+    <color name="whitesmoke">#F9F9F1</color> <!-- 烟白色 -->
+    <color name="whitesmoke1">#E2E2E2</color> <!-- 烟白色 -->
+    <color name="black">#000000</color> <!-- 黑色 -->
+    <color name="gray">#555459</color> <!-- 灰色 -->
+    <color name="gray_q">#bbb9b9</color>
+    <color name="cadetblue">#5F9EA0</color> <!-- 军兰色 -->
+    <color name="alpha">#00000000</color> <!-- 透明 -->
+    <color name="lightblue">#ADD8E6</color> <!-- 亮蓝色 -->
+    <color name="slightgray">#e3e3e3</color> <!-- 白色 -->
+    <color name="lightgray">#F5F2EB</color> <!-- 亮灰色 -->
+    <color name="huanglvse">#7dff0a</color><!--黄绿色-->
+    <color name="red">#BF0D0D</color>
+    <color name="fenhong">#ff8bfb</color>
+    <color name="title_color">#fc8d3b</color><!--顶部导航栏颜色-->
+    <color name="bottom_color">#555459</color><!--底部导航栏颜色-->
+
+    <color name="button_color">#fc8d3b</color><!--按钮颜色-->
+    <color name="button_color_gray">#D6D6D6</color>
+
+    <color name="blue">#5AABED</color>
+    <color name="yellow">#E7D93B</color>
+    <color name="yellows">#FBA500</color>
+
+    <color name="menu_1">#7698c5</color>
+    <color name="menu_2">#5bb253</color>
+    <color name="menu_3">#d1bc23</color>
+    <color name="menu_4">#25a1bb</color>
+
+
+    <color name="background">#faf6f5</color>
+    <color name="text_orange">#fc8d3b</color>
+    <color name="text_gray">#b0b0b0</color>
+    <color name="listview_bs">#f4f4f4</color>
+
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/white"
+    android:paddingTop="@dimen/margin_5"
+    android:paddingBottom="@dimen/margin_5"
+    android:orientation="vertical">
+
+   <CheckBox
+       android:id="@+id/cb_haoma"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/checkbox_haoma_style"
+       android:button="@null"
+       android:gravity="center"
+       android:text="01"
+       android:textColor="@drawable/text_selector_black_checked"
+       android:textSize="@dimen/text_size_24"/>
+
+</LinearLayout>

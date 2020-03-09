@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.jingcai.jc_11x5.ui.fragment.KjzsFragment2">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/ll_center"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layout_title"
+        android:layout_above="@+id/lv_yuliu"
+        android:orientation="vertical" >
+
+        <!-- heard -->
+
+        <LinearLayout
+            android:id="@+id/layout_title_navi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:drawableBottom="@drawable/guide_round"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size_16" />
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_pages"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation"
+            android:spacing="0dip" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/divider"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_yuliu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@mipmap/divider"
+        android:scrollbars="none"
+        android:cacheColorHint="@color/alpha"
+        android:layout_above="@+id/iv_div"
+        android:background="@color/alpha" />
+
+    <ImageView
+        android:id="@+id/iv_div"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_bottom"
+        android:background="@mipmap/divider"/>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_35"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_marginRight="@dimen/margin_5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textSize="@dimen/text_size_12"
+            android:id="@+id/tv_kjmc" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical|right"
+            android:text=""
+            android:textSize="@dimen/text_size_12"
+            android:id="@+id/tv_kjsj" />
+    </LinearLayout>
+
+</RelativeLayout>

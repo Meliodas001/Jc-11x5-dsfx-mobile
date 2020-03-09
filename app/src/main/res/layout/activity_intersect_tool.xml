@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_intersect_tool"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="ui.activity.IntersectToolActivity">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/margin_5"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_height_25"
+                    android:gravity="center_vertical"
+                    android:text="A 任"/>
+
+                <TextView
+                    android:id="@+id/tv_leixing_a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/tv_zhu_a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_orange"
+                    android:textSize="@dimen/text_size_14"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/text_size_14"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_paste_a"
+                android:layout_width="@dimen/layout_width_35"
+                android:layout_height="@dimen/btn_height_25"
+                android:background="@drawable/bg_btn_blue_3"
+                android:layout_toLeftOf="@+id/bt_clean_a"
+                android:layout_marginRight="@dimen/margin_5"
+                android:text="粘贴"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/bt_clean_a"
+                android:layout_width="@dimen/layout_width_35"
+                android:layout_height="@dimen/btn_height_25"
+                android:background="@drawable/bg_btn_gray_3"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_5"
+                android:text="清空"
+                android:textColor="@color/white"/>
+
+            <com.jingcai.jc_11x5.view.PEditText
+                android:id="@+id/et_haoma_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_clean_a"
+                android:background="@drawable/bg_layout"
+                android:layout_marginTop="@dimen/margin_5"
+                android:padding="@dimen/margin_10"
+                android:gravity="left"
+                android:lines="14"
+                android:scrollbars="vertical"
+                android:hint="请粘贴您复制的号码"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_size_14"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_height_25"
+                    android:gravity="center_vertical"
+                    android:text="B 任"/>
+
+                <TextView
+                    android:id="@+id/tv_leixing_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/tv_zhu_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_orange"
+                    android:textSize="@dimen/text_size_14"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/text_size_14"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_paste_b"
+                android:layout_width="@dimen/layout_width_35"
+                android:layout_height="@dimen/btn_height_25"
+                android:background="@drawable/bg_btn_blue_3"
+                android:layout_toLeftOf="@+id/bt_clean_b"
+                android:layout_marginRight="@dimen/margin_5"
+                android:text="粘贴"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/bt_clean_b"
+                android:layout_width="@dimen/layout_width_35"
+                android:layout_height="@dimen/btn_height_25"
+                android:background="@drawable/bg_btn_gray_3"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_5"
+                android:text="清空"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/white"/>
+
+            <com.jingcai.jc_11x5.view.PEditText
+                android:id="@+id/et_haoma_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_clean_b"
+                android:background="@drawable/bg_layout"
+                android:layout_marginTop="@dimen/margin_5"
+                android:padding="@dimen/margin_10"
+                android:gravity="left"
+                android:lines="14"
+                android:scrollbars="vertical"
+                android:hint="请粘贴您复制的号码"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_size_14"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_ab_jiao"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height_25"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_blue_3"
+            android:layout_marginRight="@dimen/margin_8"
+            android:text="AB交集"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/bt_ab_bing"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height_25"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_blue_3"
+            android:layout_marginRight="@dimen/margin_8"
+            android:text="AB并集"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/bt_a_pai_b"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height_25"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_blue_3"
+            android:layout_marginRight="@dimen/margin_8"
+            android:text="A排除B"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/bt_b_pai_a"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height_25"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_blue_3"
+            android:layout_marginRight="@dimen/margin_8"
+            android:text="B排除A"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:paddingTop="@dimen/margin_10"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_kongge"
+            style="@style/RadioButtonStyle1"
+            android:layout_marginRight="@dimen/margin_3"
+            android:checked="true"
+            android:text="空格分隔" />
+
+        <RadioButton
+            android:id="@+id/rb_douhao"
+            style="@style/RadioButtonStyle1"
+            android:layout_marginLeft="@dimen/margin_3"
+            android:text="逗号分隔" />
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10">
+
+        <TextView
+            android:id="@+id/tv_zhu_result"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btn_height_25"
+            android:text="共0注"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14"/>
+
+        <Button
+            android:id="@+id/bt_copy"
+            android:layout_width="@dimen/layout_width_35"
+            android:layout_height="@dimen/btn_height_25"
+            android:background="@drawable/bg_btn_blue_3"
+            android:layout_marginRight="@dimen/margin_8"
+            android:text="复制"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_haoma_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_layout"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:padding="@dimen/margin_10"
+                android:minLines="5"
+                android:enabled="false"
+                android:focusable="false"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_size_14"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

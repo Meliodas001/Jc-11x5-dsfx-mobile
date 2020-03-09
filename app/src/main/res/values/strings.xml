@@ -1,0 +1,103 @@
+<resources>
+    <!--<string name="app_name">Jc-11x5-dsfx-mobile</string>-->
+
+    <string name="app_name">无忧玩家</string>
+
+    <string name="menu_bottom_home">首页</string>
+    <string name="menu_bottom_zst">走势图</string>
+    <string name="menu_bottom_fafb">方案发布</string>
+    <string name="menu_bottom_r5ss">任5缩水</string>
+    <string name="menu_bottom_grzx">个人中心</string>
+    <string name="menu_bottom_btjs">倍投计算</string>
+
+    <string name="app_title">Jc-11x5</string>
+
+    <string name="bt_login">登 录</string>
+    <string name="bt_zhuce">注册新用户</string>
+    <string name="bt_exit">退出</string>
+    <string name="bt_exit_zk">退出当前账号</string>
+    <string name="bt_confirm">确定</string>
+    <string name="bt_cancle">取消</string>
+    <string name="bt_tj">提交</string>
+    <string name="bt_fh">返回</string>
+    <string name="bt_ksjs">开始计算</string>
+
+    <string name="bt_wcbzc">无忧币转赠</string>
+
+    <string name="set_per_info">个人信息</string>
+    <string name="set_help">帮助</string>
+    <string name="set_about">关于</string>
+    <string name="set_exit">退出</string>
+
+    <string name="blank_page">功能正在开发中！</string>
+
+    <string name="login_text">没有账号？</string>
+    <string name="login_zhuce">立即注册></string>
+
+    <string name="register_text">我有账号，</string>
+    <string name="register_denglu">立即登陆></string>
+
+    <string name="btn_goumai">在线购买</string>
+    <string name="btn_kefu">联系客服</string>
+
+    <string name="text_jcrj">51lucky软件</string>
+
+    <string name="text_login">登 录</string>
+    <string name="text_zhuce">注 册</string>
+    <string name="text_password">修改密码</string>
+    <string name="text_share">分享：</string>
+    <string name="text_tuijian">推荐给朋友：</string>
+    <string name="text_qq">QQ好友</string>
+    <string name="text_qq_space">QQ空间</string>
+    <string name="text_wechat">微信好友</string>
+    <string name="text_wechat_space">朋友圈</string>
+    <string name="text_tongyitiaokuan">同意条款</string>
+    <string name="text_fuwutiaokuan">服务条款</string>
+    <string name="text_kjsy">开奖声音：</string>
+    <string name="text_banben">版本号：</string>
+    <string name="text_zhanghao">当前登录账号：</string>
+    <string name="text_dqsj">到期时间：</string>
+
+    <string name="text_tzzs">投注注数：</string>
+    <string name="text_jhqs">计划期数：</string>
+    <string name="text_tzbs">起始倍数：</string>
+    <string name="text_dzjj">单注奖金（元）：</string>
+    <string name="text_syl">收益率（%）</string>
+    <string name="text_zdyl">最低盈利</string>
+
+    <string name="text_yjmr">一键默认</string>
+
+    <string name="text_zcyh">转出用户：</string>
+    <string name="text_zryh">转入用户：</string>
+    <string name="text_zcje">转出金额：</string>
+
+
+    <string name="hint_phone">请输入手机号</string>
+    <string name="hint_pwd">密码</string>
+    <string name="hint_nc">请输入昵称</string>
+    <string name="hint_qrpwd">确认密码</string>
+    <string name="hint_yzm">请输入验证码</string>
+    <string name="filter_vcode">"^+?[1-9][0-9]*$"</string>
+
+
+    <string name="text_share_tag">\t \t \t让对方使用手机上的微信、QQ或者手机助手等可扫描二维码的软件，扫描上方的二维码可安装本应用，安装完毕后打开应用，在注册时输入上方显示的邀请码，即可邀请成功</string>
+
+
+    <string name="text_fuwu"> \t \t \t重要须知-请认真阅读：本最终用户许可协议是您与该软件产品的法律协议。您一旦安装、复制或以其它方式使用本软件产品，即表示您同意接受本《协议》各项条款的约束。如果您不同意本《协议》中的条款，请不要安装和使用本软件产品。\n
+\n
+一、产品售后服务及相关说明：\n
+   \t \t 1、软件运营服务商提供一年的技术支持与服务。\n
+  \t \t 2、不断完善与升级本产品，提高产品自身价值。\n
+  \t \t 3、接收用户使用反馈意见，根据实际情况对本产品进行修改与调整。\n
+  \t \t 4、正版用户软件免费升级。\n
+  \t \t 5、 因不可抗力因素（例如：服务器被攻击、迁移、外星人袭击等）导致软件无法登陆时，本软件运营商会在第一时间尽快重建服务器，以确保用户使用。\n
+  \t \t 6、用户不得使用盗版、破解等非法途径获取的本产品，盗版、破解等软件含有大量病毒与木马， 会导致电脑资料丢失、个人信息泄密、网上银行盗用或其它的意外损失。\n
+  \t \t 7、高频玩法的数据均来自于网络，并非直接官方提供，请用户注意核对下载的数据是否一致，如出现无法下载数据或数据有遗漏、延迟等情况 请到更换网络环境尝试或与客服人员联系。\n
+  \t \t 8、免责声明：任何情况下，使用本软件产品而产生的任何直接的、间接的、惩罚性的损失或其他任何形式的损失不承担任何责任。\n
+  \t \t 9、彩票软件只是辅助选彩和分析的工具， 软件产品并不做任何保证中奖或不中奖的承诺，彩市有风险，入市请谨慎。\n
+</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

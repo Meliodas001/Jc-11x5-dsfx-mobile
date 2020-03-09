@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context="com.jingcai.jc_11x5.ui.activity.ProfitJsActivity">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <de.codecrafters.tableview.SortableTableView
+        android:id="@+id/tb_btyl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_edit"
+        android:background="@color/white"
+        custom:tableView_headerColor="@color/lightgray"/>
+
+    <LinearLayout
+        android:id="@+id/ll_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/layout_title"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_5"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="注数"/>
+                <EditText
+                    android:id="@+id/et_zhushu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/margin_5"
+                    android:textSize="@dimen/text_size_14"
+                    android:background="@drawable/underline" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_5"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="期数"/>
+                <EditText
+                    android:id="@+id/et_qishu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/margin_5"
+                    android:textSize="@dimen/text_size_14"
+                    android:background="@drawable/underline" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_5"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="倍数"/>
+                <EditText
+                    android:id="@+id/et_beishu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/margin_5"
+                    android:textSize="@dimen/text_size_14"
+                    android:background="@drawable/underline"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_set_yingli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="收益率(%)"/>
+                <EditText
+                    android:id="@+id/et_shouyi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="@dimen/margin_5"
+                    android:textSize="@dimen/text_size_14"
+                    android:background="@drawable/underline" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_set"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_5"
+                android:background="#00A4C0"
+                android:text="设置"
+                style="@style/button_common_style" />
+
+            <Button
+                android:id="@+id/btn_jisuan"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="#FBA500"
+                android:text="开始计算"
+                style="@style/button_common_style" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

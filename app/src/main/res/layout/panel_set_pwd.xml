@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_color"
+        android:gravity="center"
+        android:text="密码设置"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_5"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="请设置密码："
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_16" />
+
+        <EditText
+            android:id="@+id/et_pwd_old"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bt_bg_up"
+            android:paddingTop="@dimen/margin_15"
+            android:paddingBottom="@dimen/margin_15"
+            android:hint="请输入原始密码"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/divider"/>
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_15"
+            android:paddingBottom="@dimen/margin_15"
+            android:background="@drawable/bt_bg_down"
+            android:hint="请输入新密码"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/bt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_gray"
+                android:layout_marginRight="@dimen/margin_15"
+                android:text="取 消"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"/>
+
+            <Button
+                android:id="@+id/bt_submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_orange"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:text="确 认"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

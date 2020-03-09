@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_ren5_ssgl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jingcai.jc_11x5.ui.activity.SsglResultActivity">
+
+    <include
+        android:id="@+id/layout_main_title"
+        layout="@layout/page_title_bar" />
+
+    <de.codecrafters.tableview.SortableTableView
+        android:id="@+id/tb_ssjg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_main_title"
+        android:layout_above="@+id/btn_copy"
+        android:background="@color/white"
+        custom:tableView_headerColor="@color/lightgray" />
+
+    <Button
+        android:id="@+id/btn_copy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_30"
+        android:background="@drawable/bg_rect"
+        android:textSize="@dimen/text_size_12"
+        android:layout_margin="@dimen/margin_5"
+        android:text="复  制"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.jingcai.jc_11x5.ui.activity.CoinTransferActivity">
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/page_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_35"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_45"
+            android:background="@drawable/bt_bg_up"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/layout_width_95"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="14dp"
+                android:layout_marginRight="@dimen/margin_15"
+                android:text="@string/text_zcyh"/>
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:background="@color/gray_q"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/et_zcyh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/margin_10"
+                android:text=""
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/text_size_14"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_45"
+            android:background="@drawable/bt_bg_mid"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/layout_width_95"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="14dp"
+                android:layout_marginRight="@dimen/margin_15"
+                android:text="@string/text_zryh"/>
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:background="@color/gray_q"
+                android:layout_gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/et_zryh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/margin_10"
+                android:inputType="number"
+                android:text=""
+                android:textSize="@dimen/text_size_14"/>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_45"
+            android:background="@drawable/bt_bg_down"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_choice"
+                android:layout_width="@dimen/layout_width_95"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:paddingLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_15"
+                android:text="@string/text_zcje"/>
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:background="@color/gray_q"
+                android:layout_gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/et_zcje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:paddingLeft="@dimen/margin_10"
+                android:inputType="number"
+                android:text=""
+                android:textSize="@dimen/text_size_14"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_transfer"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_20"
+            android:text="@string/bt_wcbzc"
+            style="@style/button_common_style" />
+    </LinearLayout>
+
+</LinearLayout>

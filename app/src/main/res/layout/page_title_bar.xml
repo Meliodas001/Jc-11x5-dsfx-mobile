@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/title_color"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_header_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right|center"
+        android:text="报警设置"
+        android:padding="@dimen/margin_5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_header_left"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:src="@mipmap/icon_back"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_centerInParent="true"
+        android:marqueeRepeatLimit="100"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" />
+
+    <ImageView
+        android:id="@+id/iv_header_right"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:src="@mipmap/set_icon"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_header_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="left|center"
+        android:layout_alignParentRight="true"
+        android:text="报警日志"
+        android:padding="@dimen/margin_5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14"
+        android:visibility="gone" />
+
+</RelativeLayout>
