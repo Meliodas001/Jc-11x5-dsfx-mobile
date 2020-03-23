@@ -1,12 +1,12 @@
 package com.jingcai.jc_11x5.business.impl;
 
-import android.text.TextUtils;
+import android.os.Handler;
 import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.jingcai.jc_11x5.app.App;
 import com.jingcai.jc_11x5.consts.InterfaceConsts;
 import com.jingcai.jc_11x5.entity.Lottery;
-import com.jingcai.jc_11x5.util.DateUtil;
+import org.java_websocket.enums.ReadyState;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
@@ -15,27 +15,28 @@ import java.util.Map;
 
 public class WebSocketServer{
 
-    public JWebSocketClient client;
+    public static JWebSocketClient client;
     /**
      * 初始化websocket连接
      */
-    public void initSocketClient() {
-        URI uri = URI.create(InterfaceConsts.WS_URL + App.getInstance().getUser().getId());
+    public static void getSocketClient() {
+        String id = App.getInstance().getUser().getId();
+        URI uri = URI.create(InterfaceConsts.WS_URL + id);
         client = new JWebSocketClient(uri) {
 
             @Override
             public void onMessage(String message) {
 //                Log.e("JWebSocketClientService", "收到的消息：" + message);
-                Lottery lottery = App.getInstance().getLottery();
-                Map map = JSON.parseObject(JSON.parseObject(message).getString(App.getInstance().getUser().getCaizhong()), HashMap.class);
-                lottery.setCaiQishu(map.get("issue").toString());
-                String num = map.get("code").toString();
-                lottery.setKjsj(DateUtil.formatToStr1((Long) map.get("createTime")));
-                lottery.setJssj(DateUtil.formatToStr1((Long) map.get("endtime")));
-                lottery.setCount(map.get("number").toString());
-                lottery.setCaiNumber(num);
-                if (num != null && !TextUtils.isEmpty(num)) {
-                    lottery.setCaiNumArray(num.split(" "));
+                App app = App.getInstance();
+                Map map = JSON.parseObject(message, HashMap.class);
+                Lottery lottery = new Lottery(map, App.getInstance().getUser().getCaizhong());
+                if (app.getLottery() != null) {
+                    if (lottery.getCaiNumber().equals(app.getLottery().getCaiNumber()))
+                        lottery.setNew(false);
+                    else
+                        lottery.setNew(true);
+                } else {
+                    lottery.setNew(false);
                 }
                 App.getInstance().setLottery(lottery);
             }
@@ -52,7 +53,7 @@ public class WebSocketServer{
     /**
      * 连接websocket
      */
-    private void connect() {
+    private static void connect() {
         new Thread() {
             @Override
             public void run() {
@@ -65,5 +66,58 @@ public class WebSocketServer{
             }
         }.start();
 
+    }
+
+    /**
+     * 发送消息
+     *
+     * @param type
+     */
+    public static void sendMsg(String type) {
+        while (!client.getReadyState().equals(ReadyState.OPEN)) {
+            Log.e("连接中···请稍后", "");
+        }
+        if (null != client) {
+//            Log.e("JWebSocketClientService", "发送的消息：" + msg);
+            if (type == null)
+                type = App.getInstance().getUser().getCaizhong();
+            client.send(type);
+        }
+    }
+
+    private static final long HEART_BEAT_RATE = 10 * 1000;//每隔10秒进行一次对长连接的心跳检测
+    private Handler mHandler = new Handler();
+    private Runnable heartBeatRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (client != null) {
+                if (client.isClosed()) {
+                    reconnectWs();
+                }
+            } else {
+                //如果client已为空，重新初始化websocket
+                getSocketClient();
+            }
+            //定时对长连接进行心跳检测
+            mHandler.postDelayed(this, HEART_BEAT_RATE);
+        }
+    };
+
+    /**
+     * 开启重连
+     */
+    private void reconnectWs() {
+        mHandler.removeCallbacks(heartBeatRunnable);
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    //重连
+                    client.reconnectBlocking();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }

@@ -4,9 +4,9 @@
     <string name="app_name">无忧玩家</string>
 
     <string name="menu_bottom_home">首页</string>
-    <string name="menu_bottom_zst">走势图</string>
+    <string name="menu_bottom_zst">分析图表</string>
     <string name="menu_bottom_fafb">方案发布</string>
-    <string name="menu_bottom_r5ss">任5缩水</string>
+    <string name="menu_bottom_r5ss">组合过滤</string>
     <string name="menu_bottom_grzx">个人中心</string>
     <string name="menu_bottom_btjs">倍投计算</string>
 
@@ -58,8 +58,8 @@
     <string name="text_zhanghao">当前登录账号：</string>
     <string name="text_dqsj">到期时间：</string>
 
-    <string name="text_tzzs">投注注数：</string>
-    <string name="text_jhqs">计划期数：</string>
+    <string name="text_tzzs">详情内容注数：</string>
+    <string name="text_jhqs">方案期数：</string>
     <string name="text_tzbs">起始倍数：</string>
     <string name="text_dzjj">单注奖金（元）：</string>
     <string name="text_syl">收益率（%）</string>
@@ -94,7 +94,7 @@
   \t \t 6、用户不得使用盗版、破解等非法途径获取的本产品，盗版、破解等软件含有大量病毒与木马， 会导致电脑资料丢失、个人信息泄密、网上银行盗用或其它的意外损失。\n
   \t \t 7、高频玩法的数据均来自于网络，并非直接官方提供，请用户注意核对下载的数据是否一致，如出现无法下载数据或数据有遗漏、延迟等情况 请到更换网络环境尝试或与客服人员联系。\n
   \t \t 8、免责声明：任何情况下，使用本软件产品而产生的任何直接的、间接的、惩罚性的损失或其他任何形式的损失不承担任何责任。\n
-  \t \t 9、彩票软件只是辅助选彩和分析的工具， 软件产品并不做任何保证中奖或不中奖的承诺，彩市有风险，入市请谨慎。\n
+  \t \t 9、彩票软件只是辅助选彩和分析的工具， 软件产品并不做任何保证正确或不正确的承诺，彩市有风险，入市请谨慎。\n
 </string>
 
 

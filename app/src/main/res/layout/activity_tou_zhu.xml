@@ -126,7 +126,7 @@
         android:layout_marginLeft="@dimen/margin_15"
         android:layout_marginRight="@dimen/margin_15"
         android:layout_alignParentBottom="true"
-        android:text="立即投注"
+        android:text="立即发布"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_18"/>
 

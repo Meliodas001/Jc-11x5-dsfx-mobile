@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
-        android:src="@mipmap/logo"
+        android:src="@mipmap/ic_jc"
         android:layout_marginTop="@dimen/margin_35"
         android:layout_marginBottom="@dimen/margin_30"
         android:layout_centerHorizontal="true"/>
@@ -91,9 +91,12 @@
             android:layout_height="@dimen/layout_height_45"
             android:layout_marginTop="@dimen/margin_15"
             android:orientation="horizontal">
-
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_qq"
+                    android:layout_centerVertical="true">
             <ImageView
-                android:id="@+id/iv_qq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -107,7 +110,7 @@
                 android:layout_toRightOf="@+id/iv_qq"
                 android:textSize="@dimen/text_size_14"
                 android:text="@string/btn_kefu"/>
-
+            </LinearLayout>
             <TextView
                 android:id="@+id/tv_zhuce"
                 android:layout_width="wrap_content"

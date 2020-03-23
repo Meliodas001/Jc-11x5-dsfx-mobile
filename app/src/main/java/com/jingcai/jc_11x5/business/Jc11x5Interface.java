@@ -25,7 +25,7 @@ public interface Jc11x5Interface {
      */
     void register(Handler handler, UserInfo user);
 
-    void getMassgeCode(Handler handler, String phone);
+    void getMassgeCode(Handler handler, String phone, int flag);
 
     /**
      * 用户登录
@@ -75,7 +75,7 @@ public interface Jc11x5Interface {
     void getBeginTime(Handler handler, String caiType);
 
     /**
-     * 根据起始期号和结束期号获取投注记录 //查询当天期号例如 orderNo =180101  ，endOrder=180199
+     * 根据起始期号和结束期号获取详情内容记录 //查询当天期号例如 orderNo =180101  ，endOrder=180199
      * @param handler
      * @param caiType 彩票类型
      * @param userId
@@ -121,7 +121,7 @@ public interface Jc11x5Interface {
     void getSeasonTopProfit(Handler handler);
 
     /**
-     * 发布计划
+     * 发布方案
      * @param handler
      * @param planInfo
      * @param planDetil
@@ -129,22 +129,22 @@ public interface Jc11x5Interface {
     void addPlanInfo(Handler handler, PlanInfo planInfo, PlanDetails planDetil);
 
     /**
-     * 查看计划
+     * 查看方案
      * @param handler
-     * @param planId 计划编号
+     * @param planId 方案编号
      * @param userId 用户编号
      */
     void getPlanInfo(Handler handler, String planId, String userId);
 
     /**
-     * 根据计划编号获取第一期的计划明细
+     * 根据方案编号获取第一期的方案明细
      * @param handler
      * @param planInfo
      */
     void getTopOneByPlanId(Handler handler, PlanInfo planInfo);
 
     /**
-     * 获取最新计划（首页显示列表）
+     * 获取最新方案（首页显示列表）
      * @param handler
      * @param caiType 彩种
      */
@@ -153,9 +153,9 @@ public interface Jc11x5Interface {
     void newPlanListByNickName(Handler handler, String caiType, String nickName);
 
     /**
-     * 支付点币查看计划
+     * 支付点币查看方案
      * @param handler
-     * @param planId 计划编号
+     * @param planId 方案编号
      */
     void addOwnPlan(Handler handler, String planId, String checkPrice);
 
@@ -180,13 +180,13 @@ public interface Jc11x5Interface {
     void getJobPriceList(Handler handler);
 
     /**
-     * 全包计划员
+     * 全包方案员
      * @param handler
      */
     void getAllJobList(Handler handler);
 
     /**
-     * 部分包计划员
+     * 部分包方案员
      * @param handler
      */
     void getSingleJobList(Handler handler);
@@ -230,9 +230,8 @@ public interface Jc11x5Interface {
     /**
      * 实时开奖
      * @param handler
-     * @param caiType
      */
-    void getLuckyNumber(Handler handler, String caiType);
+    void getLuckyNumber(Handler handler);
 
     /**
      * 最近百期开奖>100期
@@ -260,14 +259,14 @@ public interface Jc11x5Interface {
      * @param handler 消息处理
      * @param beginCount 倍数
      * @param danBeiCount 单倍注数
-     * @param sliderBonus 单倍奖金
+     * @param sliderBonus 积分奖励
      * @param minRate 盈利率
      * @param planPostCout 即将开奖的期数
      */
     void createPlan(Handler handler,double beginCount, double danBeiCount, double sliderBonus, double minRate, int planPostCout);
 
     /**
-     * 投注生成
+     * 详情内容生成
      * @param handler
      * @param json
      * @param planBeiInfos
@@ -278,7 +277,7 @@ public interface Jc11x5Interface {
      * 根据最低盈利率
      * @param handler
      * @param count 注数
-     * @param orderCount 计划期数
+     * @param orderCount 方案期数
      * @param multiple 起始倍数
      * @param bonus 单注奖金
      * @param profitPer 最低盈利率
@@ -289,7 +288,7 @@ public interface Jc11x5Interface {
      * 根据最低盈利金额
      * @param handler
      * @param count 注数
-     * @param orderCount 计划期数
+     * @param orderCount 方案期数
      * @param multiple 起始倍数
      * @param bonus 单注奖金
      * @param profit 最低盈利

@@ -14,7 +14,7 @@ public class CoinChangeRecord implements Serializable {
     private Integer changeType; //
     private String changeVal; //账变金额
     private String createTime; //账变时间
-    private String details; //记录信息-附带计划ID
+    private String details; //记录信息-附带方案ID
     private String lastVal;
     private String finalVal;
     private String isOut;

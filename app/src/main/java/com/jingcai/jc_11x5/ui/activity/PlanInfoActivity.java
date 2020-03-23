@@ -14,6 +14,7 @@ import com.jingcai.jc_11x5.business.Jc11x5Factory;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.entity.PlanInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
+import com.jingcai.jc_11x5.ui.MainActivity;
 import com.jingcai.jc_11x5.view.widget.ProgressWidget;
 
 import butterknife.Bind;
@@ -71,7 +72,7 @@ public class PlanInfoActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initData();
-        tvTitle.setText("计划详情查看");
+        tvTitle.setText("方案详情查看");
         ivHeaderLeft.setVisibility(View.VISIBLE);
         requestData();
     }
@@ -110,9 +111,9 @@ public class PlanInfoActivity extends BaseActivity {
         tvOrderTotal.setText(String.valueOf(planInfo.getOrderTotal()));
         int state = planInfo.getState();
         if(state == 1){
-            tvState.setText("中奖");
+            tvState.setText("正确");
         }else if(state == 2){
-            tvState.setText("未中");
+            tvState.setText("错误");
         }else{
             tvState.setText("未开");
         }
@@ -156,6 +157,9 @@ public class PlanInfoActivity extends BaseActivity {
             case HandlerWhat.GET_PLANINFO_SUCCESS:
                 planInfo = (PlanInfo) msg.obj;
                 initView();
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(0);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(1);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(2);
                 ProgressWidget.dismissProgressDialog();
                 break;
             default:

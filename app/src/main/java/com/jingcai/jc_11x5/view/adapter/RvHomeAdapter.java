@@ -23,13 +23,10 @@ import com.jingcai.jc_11x5.R;
 import com.jingcai.jc_11x5.app.App;
 import com.jingcai.jc_11x5.business.GlideImageLoader;
 import com.jingcai.jc_11x5.business.Jc11x5Factory;
+import com.jingcai.jc_11x5.business.impl.WebSocketServer;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.consts.ReturnStatus;
-import com.jingcai.jc_11x5.entity.CaiZhong;
-import com.jingcai.jc_11x5.entity.ImageInfo;
-import com.jingcai.jc_11x5.entity.Lottery;
-import com.jingcai.jc_11x5.entity.NoticeInfo;
-import com.jingcai.jc_11x5.entity.ResultBean;
+import com.jingcai.jc_11x5.entity.*;
 import com.jingcai.jc_11x5.ui.activity.PlanDetailActivity;
 import com.jingcai.jc_11x5.util.CaiUtil;
 import com.jingcai.jc_11x5.util.DateUtil;
@@ -69,6 +66,7 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
 
     private LayoutInflater mLayoutInflater;
     private ResultBean resultBean;
+    private Lottery lottery;
     private Context mContext;
     private boolean isHidden;
     App app = App.getInstance();
@@ -337,11 +335,11 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                 try {
                     switch (msg.what) {
                         case HandlerWhat.GET_LUCKYNUM_SUCCESS:
-                            String lastOrder = resultBean.getLottery().getCaiQishu();
+                           /* String lastOrder = lottery.getCaiQishu();
                             Lottery newLottery = (Lottery) msg.obj;
                             String order = newLottery.getCaiQishu();
                             LogUtil.info("HomeAdapter","lastOrder=" + lastOrder + "; order = " + order);
-                            if (!order.equals(currentOrder)) {
+                            if (!order.equals(lastOrder)) {
                                 tvKjqs.setText(newLottery.getCaiTypeMc() + " 第" + order + "期");
                                 currentOrder = order;
                                 String[] array = newLottery.getCaiNumArray();
@@ -352,7 +350,7 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                                     tvKj4.setText(array[3]);
                                     tvKj5.setText(array[4]);
                                 }
-                                resultBean.setLottery(newLottery);
+                                App.getInstance().setLottery(newLottery);
                                 if(!isHidden){
                                     PromptUtil.startAlarm(mContext);
                                 }
@@ -373,7 +371,7 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                                 }
                             } else {
                                 handler.sendEmptyMessageDelayed(10, 2000);
-                            }
+                            }*/
                             break;
                         case HandlerWhat.GET_LUCKYNUM_TIMEOUT:
                         case HandlerWhat.GET_LUCKYNUM_FALIURE:
@@ -392,15 +390,15 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                             //发送消息，不断减时间
                             handler.sendEmptyMessageDelayed(0, 1000);
                             if (dt <= 500) {
-//                                getDjs();
-                                String cq = resultBean.getLottery().getCaiQishu();
-                                if (cq == null || TextUtils.isEmpty(cq)) {
-                                    Jc11x5Factory.getInstance().getLuckyNumber(handler, resultBean.getLottery().getCaiType());
+                                //getDjs();
+                                String caiQishu = lottery.getCaiQishu();
+                                /*if (cq == null || TextUtils.isEmpty(cq)) {
+                                    Jc11x5Factory.getInstance().getLuckyNumber(handler);
                                     break;
                                 }
-                                String caiQishu = resultBean.getLottery().getCaiQishu();
-                                if (cq.substring(6, 8).equals(resultBean.getLottery().getCount())) {
-                                    tvKjqs.setText(resultBean.getLottery().getCaiTypeMc() + " 第" + caiQishu + "期");
+                                String caiQishu = lottery.getCaiQishu();
+                                if (cq.substring(6, 8).equals(lottery.getCount())) {
+                                    tvKjqs.setText(lottery.getCaiTypeMc() + " 第" + caiQishu + "期");
                                     long ctime = DateUtil.getNowMills();//当前时间
                                     long nextTime = DateUtil.parseTimeToMillis(DateUtil.getMingtianDate() + " 00:00:00");
                                     if (ctime < nextTime) {
@@ -409,18 +407,29 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                                     } else {
                                         getDjs();
                                     }
-                                } else {
-                                    tvKjqs.setText(resultBean.getLottery().getCaiTypeMc() + " 第" + caiQishu + "期");
+                                } else {*/
+                                    tvKjqs.setText(lottery.getCaiTypeMc() + " 第" + caiQishu + "期");
                                     int nextQishu = Integer.parseInt(caiQishu.substring(6)) + 1;
-                                    if(nextQishu <= Integer.parseInt(resultBean.getLottery().getCount())){
+                                    if(nextQishu <= Integer.parseInt(lottery.getCount())){
                                         tvDjs.setText("第" + nextQishu + "期正在开奖中");
+                                        handler.sendEmptyMessageDelayed(10, 1000);
                                     }else{
                                         tvDjs.setText("今天开奖已结束");
+                                        handler.sendEmptyMessageDelayed(11, 120000);
                                     }
-                                }
+//                                }
                             }
                             break;
                         case 10:
+                            Lottery lo = app.getLottery();
+                            if (lo.getNew()) {
+                                if (!isHidden)
+                                    PromptUtil.startAlarm(mContext);
+                                lo.setNew(false);
+                                setData();
+                            } else {
+                                handler.sendEmptyMessageDelayed(10, 1000);
+                            }
                             break;
                         case 11:
                             long ctime = DateUtil.getNowMills();//当前时间
@@ -428,12 +437,13 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                             if (ctime > jsTime && ctime < nextTime) {
                                 handler.sendEmptyMessageDelayed(11, 120000);
                             } else {
-                                ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + resultBean.getLottery().getKjsj());//第一期开始时间
-                                jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + resultBean.getLottery().getJssj());//最后一期开始时间
+                                ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getKjsj());//第一期开始时间
+                                jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getJssj());//最后一期开始时间
                                 handler.removeCallbacksAndMessages(null);
                                 getDjs();
                             }
                             break;
+
                         default:
 
                             break;
@@ -445,9 +455,8 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
         };
 
         public void setData(){
-            Lottery lottery = resultBean.getLottery();
+            lottery = app.getLottery();
             String qishu = lottery.getCaiQishu();
-            currentOrder = qishu;
             tvKjqs.setText(lottery.getCaiTypeMc() + " 第" + qishu + "期");
             String[] array = lottery.getCaiNumArray();
             if(array != null && array.length >= 5){
@@ -457,34 +466,30 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
                 tvKj4.setText(array[3]);
                 tvKj5.setText(array[4]);
             }
-            tvJifen.setText(lottery.getJiFen());
-            tvDianbi.setText(lottery.getDianBi());
-//            tvYue.setText(lottery.getYue());
+            tvJifen.setText(app.getUser().getCoin());
+            tvDianbi.setText(app.getUser().getMoney());
             ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getKjsj());//第一期开始时间
             jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getJssj());//最后一期开始时间
             getDjs();
-            if(dt > 6 * 60 * 1000){
-                handler.sendEmptyMessageDelayed(10, 10000);
-            }
             //进入后1秒钟就去发送这个消息
             handler.sendEmptyMessageDelayed(0,1000);
         }
 
         private void getDjs(){
             long ctime = DateUtil.getNowMills();//当前时间
-//            int orderNo = CaiUtil.getCurrentPeriod();
-            if (ctime > jsTime + 30000) {
+            int orderNo = CaiUtil.getCurrentPeriod();
+           /* if (ctime > jsTime + 30000) {
                 tvDjs.setText("今天开奖已经结束");
                 handler.removeCallbacksAndMessages(null);
                 return;
-            }
+            }*/
             if (ctime < ksTime) {
                 dt = ksTime - ctime;
             } else {
-                long kjsj = (ctime - ksTime) % (10 * 60 * 1000);
-                dt = 10 * 60 * 1000 - kjsj;
+                long kjsj = (ctime - ksTime) % (20 * 60 * 1000);
+                dt = 20 * 60 * 1000 - kjsj;
             }
-            /*if (orderNo >= Integer.parseInt(resultBean.getLottery().getCount())) {
+            /*if (orderNo >= Integer.parseInt(lottery.getCount())) {
                 tvDjs.setText("今天开奖已经结束");
                 handler.removeCallbacksAndMessages(null);
                 return;
@@ -594,9 +599,9 @@ public class RvHomeAdapter extends RecyclerView.Adapter<RvHomeAdapter.BseeHolder
         }
 
         private void showCaiZhongList() {
-            String title = "请选择彩种：";
+            String title = "游戏玩法：";
             List<CaiZhong> lists =  CaiUtil.getCaiZhongList();
-            lists.add(0, new CaiZhong("全部计划", "全部计划"));
+            lists.add(0, new CaiZhong("全部方案", "全部方案"));
             final DmAdapter dmadapter = new DmAdapter(mContext, lists);
             dialogWiget.showListview(mContext, title, dmadapter, new AdapterView.OnItemClickListener() {
 

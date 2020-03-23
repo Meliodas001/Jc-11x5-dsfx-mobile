@@ -49,7 +49,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
     @Override
     public void getBanben(final Handler handler) {
         new Thread(new Runnable() {
-            @Override
+           @Override
             public void run() {
                 new Thread(new Runnable() {
                     @Override
@@ -100,6 +100,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     RequestBody requestBody = new FormBody.Builder()
                             .add("phone", user.getUserName())
@@ -108,30 +109,32 @@ public class Jc11x5Thread implements Jc11x5Interface {
                             .add("nickName", user.getUserName())
                             .add("userCover", user.getShareNo())
                             .add("verCode", user.getMsgCode())
+                            .add("mac", user.getMac())
                             .build();
                     String result = OkHttpRequester.postStringFromServer(InterfaceConsts.REGISTER_URL, requestBody, false);
-                    Map map = new Gson().fromJson(result, HashMap.class);
+                    map = new Gson().fromJson(result, HashMap.class);
                     if (!map.get("code").equals("1")) {
                         handlerSendMsg(handler, HandlerWhat.REGISTER_FALIURE, map.get("message"));
                     } else {
                         handlerSendMsg(handler, HandlerWhat.REGISTER_SUCCESS, map.get("message"));
                     }
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.REGISTER_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.REGISTER_FALIURE, map.get("message"));
                 }
             }
         }).start();
     }
 
     @Override
-    public void getMassgeCode(final Handler handler, final String phone) {
+    public void getMassgeCode(final Handler handler, final String phone, final int flag) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     RequestBody requestBody = new FormBody.Builder().build();
-                    String result = OkHttpRequester.postStringFromServer(InterfaceConsts.GET_PHONE_CODE + "?flag=2&phone=" + phone, requestBody,false);
-                    Map map = new Gson().fromJson(result, HashMap.class);
+                    String result = OkHttpRequester.postStringFromServer(InterfaceConsts.GET_PHONE_CODE + "?flag=" + flag + "&phone=" + phone, requestBody,false);
+                    map = new Gson().fromJson(result, HashMap.class);
                     if (!map.get("code").equals("1")) {
                         handlerSendMsg(handler, HandlerWhat.GET_PHONE_CODE_FALIURE, map.get("message"));
                     } else {
@@ -139,7 +142,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_PHONE_CODE_TIMEOUT, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_PHONE_CODE_TIMEOUT, map.get("message"));
                 }
             }
         }).start();
@@ -150,12 +153,13 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     String loginUrl = InterfaceConsts.LOGIN_URL;
                     loginUrl += "?phone=" + user.getUserName() + "&password=" + user.getPassWord() + "&mac=" + user.getMac();
                     RequestBody requestBody = new FormBody.Builder().build();
                     String result = OkHttpRequester.postStringFromServer(loginUrl, requestBody, false);
-                    Map map = JSON.parseObject(result, HashMap.class);
+                    map = JSON.parseObject(result, HashMap.class);
                     if (!map.get("code").equals("1")) {
                         handlerSendMsg(handler, HandlerWhat.LOGIN_FALIURE, map.get("message"));
                         return;
@@ -195,10 +199,11 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     TokenEntity entity = new TokenEntity();
                     entity.setId(userMap.get("id").toString());
                     entity.setToken(userMap.get("token").toString());
+
                     handlerSendMsg(handler, HandlerWhat.LOGIN_SUCCESS, user);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.LOGIN_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.LOGIN_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -236,21 +241,26 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String result = null;
                 try {
-                    String result = OkHttpRequester.getStringFromServer(InterfaceConsts.DETAIL_URL, true);
+                    result = OkHttpRequester.getStringFromServer(InterfaceConsts.DETAIL_URL, true);
                     UserInfo user = JSON.parseObject(JSON.parseObject(result).getString("data"), UserInfo.class);
                     App app = App.getInstance();
                     Lottery lottery = app.getLottery();
                     lottery.setDianBi(user.getMoney());
                     lottery.setJiFen(user.getCoin());
                     UserInfo userInfo = app.getUser();
-                    user.setCaizhong(userInfo.getCaizhong());
-                    user.setCaizhongMc(userInfo.getCaizhongMc());
-                    app.setUser(user);
+                    userInfo.setMoney(user.getMoney());
+                    userInfo.setCoin(user.getCoin());
+                    userInfo.setBalance(user.getBalance());
+                    userInfo.setVip(user.getVip());
+                    if (user.getVipEndData() != null)
+                        userInfo.setVipEndData(user.getVipEndData());
+                    app.setUser(userInfo);
                     handlerSendMsg(handler, HandlerWhat.GET_USERINFOBYNAME_SUCCESS, user);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_USERINFOBYNAME_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_USERINFOBYNAME_FALIURE, JSON.parseObject(result).getString("message"));
                 }
             }
         }).start();
@@ -261,8 +271,9 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String result = "";
                 try {
-                    String result = OkHttpRequester.postStringFromServer(InterfaceConsts.UPDATE_USER_NAME_URL + "?nickname=" + newNickName, new FormBody.Builder().build(), true);
+                    result = OkHttpRequester.postStringFromServer(InterfaceConsts.UPDATE_USER_NAME_URL + "?nickname=" + newNickName, new FormBody.Builder().build(), true);
                     UserInfo u = JSON.parseObject(JSON.parseObject(result).getString("data"), UserInfo.class);
                     if (u != null) {
                         UserInfo userInfo = App.getInstance().getUser();
@@ -271,9 +282,9 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         handlerSendMsg(handler, HandlerWhat.UPDATE_NC_SUCCESS, "昵称修改成功！");
                         return;
                     }
-                    handlerSendMsg(handler, HandlerWhat.UPDATE_NC_FALIURE, "未知原因修改失败！");
+                    handlerSendMsg(handler, HandlerWhat.UPDATE_NC_FALIURE, JSON.parseObject(result).getString("message"));
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.UPDATE_NC_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.UPDATE_NC_FALIURE, JSON.parseObject(result).getString("message"));
                 }
             }
         }).start();
@@ -284,11 +295,12 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     UserInfo userInfo = App.getInstance().getUser();
                     RequestBody requestBody = new FormBody.Builder().build();
                     String result = OkHttpRequester.postStringFromServer(InterfaceConsts.REGISTER_PWD_URL + "?oldPass=" + etOldPwd + "&newPass=" + newPass, requestBody, true);
-                    Map map = JSON.parseObject(result);
+                    map = JSON.parseObject(result);
                     if (map.get("code").equals("1")) {
                         userInfo.setPassWord(newPass);
                         App.getInstance().setUser(userInfo);
@@ -298,7 +310,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.UPDATE_PWD_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.UPDATE_PWD_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -341,10 +353,11 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try{
                     String requestUrl = InterfaceConsts.REGISTER_PWD2_URL + "?phone=" + user.getUserName() + "&verCode=" + code + "&password=" + user.getPassWord();
                     String result = OkHttpRequester.postStringFromServer(requestUrl, new FormBody.Builder().build(), false);
-                    Map map = JSON.parseObject(result);
+                    map = JSON.parseObject(result);
                     if (map.get("code").equals("1")) {
                         handlerSendMsg(handler, HandlerWhat.UPDATE_FORGET_PWD_SUCCESS, map.get("message"));
                     } else {
@@ -352,7 +365,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.UPDATE_FORGET_PWD_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.UPDATE_FORGET_PWD_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -424,13 +437,19 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String result = "";
                 try {
-                    String result = OkHttpRequester.getStringFromServer(InterfaceConsts.PLANT_RECODE_URL, true);
-                    String json = JSON.parseObject(result).getString("data");
-                    List<PlanDetails> lists = JSON.parseArray(JSON.parseObject(json).getString("records"), PlanDetails.class);
-                    handlerSendBundleMsg(handler, HandlerWhat.GET_TZJL_SUCCESS, ReturnStatus.KEY_GET_TOUZHU_LIST, lists);
+                    result = OkHttpRequester.getStringFromServer(InterfaceConsts.PLANT_RECODE_URL, true);
+                    if (JSON.parseObject(result).get("code").toString().equals("1")) {
+                        String json = JSON.parseObject(result).getString("data");
+                        List<PlanDetails> lists = JSON.parseArray(JSON.parseObject(json).getString("records"), PlanDetails.class);
+                        handlerSendBundleMsg(handler, HandlerWhat.GET_TZJL_SUCCESS, ReturnStatus.KEY_GET_TOUZHU_LIST, lists);
+                    } else {
+                        handlerSendMsg(handler, HandlerWhat.GET_TZJL_FALIURE, JSON.parseObject(result).getString("message").toString());
+                    }
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.GET_TZJL_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    e.printStackTrace();
+                    handlerSendMsg(handler, HandlerWhat.GET_TZJL_FALIURE, JSON.parseObject(result).getString("message"));
                 }
             }
         }).start();
@@ -441,14 +460,15 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String resutl = "";
                 try{
-                    String resutl = OkHttpRequester.getStringFromServer(InterfaceConsts.NEWS_LIST_URL + "?page=1&limit=1000", true);
+                    resutl = OkHttpRequester.getStringFromServer(InterfaceConsts.NEWS_LIST_URL + "?page=1&limit=1000", true);
                     String json = JSON.parseObject(resutl).getString("data");
                     List<News> list = JSON.parseArray(JSON.parseObject(json).getString("records"), News.class);
                     handlerSendBundleMsg(handler, HandlerWhat.GET_NEWS_LIST_SUCCESS, ReturnStatus.KEY_GET_NES_LIST, list);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_NEWS_LIST_FALIURE, ReturnStatus.KEY_GET_NEWPLAN_LIST);
+                    handlerSendMsg(handler, HandlerWhat.GET_NEWS_LIST_FALIURE, JSON.parseObject(resutl).getString("message"));
                 }
             }
         }).start();
@@ -457,7 +477,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
     @Override
     public void updateNewsSate(Handler handler) {
         try{
-            String resutl = OkHttpRequester.getStringFromServer(InterfaceConsts.NEWS_STATE_URL, true);
+//            String resutl = OkHttpRequester.postStringFromServer(InterfaceConsts.NEWS_STATE_URL, new FormBody.Builder().build(), true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -605,16 +625,17 @@ public class Jc11x5Thread implements Jc11x5Interface {
     }
 
     @Override
-    public void getPlanInfo(final Handler handler, final String planId, final String userId) {
+    public void  getPlanInfo(final Handler handler, final String planId, final String userId) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     String url = InterfaceConsts.RELEASE_PLAN_DETAILS_URL;
                     url += "?id=" + planId + "&regId=" + userId;
                     String result = OkHttpRequester.getStringFromServer(url, true);
 
-                    Map map = JSON.parseObject(JSON.parseObject(result).getString("data"), HashMap.class);
+                    map = JSON.parseObject(JSON.parseObject(result).getString("data"), HashMap.class);
                     PlanInfo plan = new PlanInfo();
                     plan.setId(planId);
                     if (map.get("lotteryType") != null)
@@ -662,7 +683,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     handlerSendMsg(handler, HandlerWhat.GET_PLANINFO_SUCCESS, plan);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_PLANINFO_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_PLANINFO_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -714,7 +735,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
             public void run() {
                 try {
                     String url = InterfaceConsts.PLAN_ALL_URL;
-                    if (!caiType.equals("全部计划"))
+                    if (!caiType.equals("全部方案"))
                         url += "?province=" + caiType;
                     if (nickName != null && !nickName.equals("")) {
                         if (url.indexOf("?") > 0)
@@ -739,18 +760,21 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     String url = InterfaceConsts.PLAY_PLAN_URL + "?planId=" + planId;
                     String result = OkHttpRequester.postStringFromServer(url, new FormBody.Builder().build(), true);
-                    Map map = JSON.parseObject(result);
+                    map = JSON.parseObject(result);
                     if (map.get("code").equals("1")) {
+                        UserInfo u = App.getInstance().getUser();
+                        u.setMoney(String.valueOf(Double.parseDouble(u.getMoney()) - Double.parseDouble(checkPrice)));
                         handlerSendMsg(handler, HandlerWhat.ADD_OWNPLAN_SUCCESS, map.get("data"));
                     } else {
                         handlerSendMsg(handler, HandlerWhat.ADD_OWNPLAN_FALIURE, map.get("message"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.ADD_OWNPLAN_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.ADD_OWNPLAN_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -761,14 +785,15 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String result = "";
                 try {
-                    String result = OkHttpRequester.getStringFromServer(InterfaceConsts.RECORD_URL + "?page=1&limit=1000", true);
+                    result = OkHttpRequester.getStringFromServer(InterfaceConsts.RECORD_URL + "?page=1&limit=1000", true);
                     String jsonObject = JSON.parseObject(result).getString("data");
                     List<CoinChangeRecord> list = JSON.parseArray(JSON.parseObject(jsonObject).getString("records"), CoinChangeRecord.class);
                     handlerSendBundleMsg(handler, HandlerWhat.GET_COINCHANGE_TOP80_SUCCESS, ReturnStatus.KEY_GET_COIN_LIST, list);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_COINCHANGE_TOP80_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_COINCHANGE_TOP80_FALIURE, JSON.parseObject(result).getString("message"));
                 }
             }
         }).start();
@@ -779,13 +804,14 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String result = "";
                 try {
-                    String result = OkHttpRequester.getStringFromServer(InterfaceConsts.CURRENCY_RECORD_URL + "?page=1&limit=1000", true);
+                    result = OkHttpRequester.getStringFromServer(InterfaceConsts.CURRENCY_RECORD_URL + "?page=1&limit=1000", true);
                     String jsonObject = JSON.parseObject(result).getString("data");
                     List<BalanceChangeRecord> list = JSON.parseArray(JSON.parseObject(jsonObject).getString("records"), BalanceChangeRecord.class);
                     handlerSendBundleMsg(handler, HandlerWhat.GET_BALANCECHANGE_TOP80_SUCCESS, ReturnStatus.KEY_GET_BALABCE_LIST, list);
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.GET_BALANCECHANGE_TOP80_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_BALANCECHANGE_TOP80_FALIURE, JSON.parseObject(result).getString("message"));
                 }
             }
         }).start();
@@ -796,12 +822,13 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String result = null;
                 try {
-                    String result = OkHttpRequester.getStringFromServer(InterfaceConsts.VIP_ALL_URL, false);
+                    result = OkHttpRequester.getStringFromServer(InterfaceConsts.VIP_ALL_URL, false);
                     List<JobPrice> list = JSON.parseArray(JSON.parseObject(result).getString("data"), JobPrice.class);
                     handlerSendBundleMsg(handler, HandlerWhat.GET_JOBPRICE_LIST_SUCCESS, ReturnStatus.KEY_GET_JOBPRICE_LIST, list);
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.GET_JOBPRICE_LIST_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_JOBPRICE_LIST_FALIURE, JSON.parseObject(result).getString("message"));
                 }
             }
         }).start();
@@ -946,10 +973,11 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     RequestBody requestBody = new FormBody.Builder().build();
                     String result = OkHttpRequester.postStringFromServer(InterfaceConsts.PLAY_VIP_URL + "?id=" + jobPrice.getId(), requestBody, true);
-                    Map map = JSONObject.parseObject(result);
+                    map = JSONObject.parseObject(result);
                     if (map.get("code").equals("1")) {
                         handlerSendMsg(handler, HandlerWhat.PAY_ALLJOB_SUCCESS, map.get("message"));
                     } else {
@@ -957,7 +985,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.PAY_ALLJOB_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.PAY_ALLJOB_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -1004,18 +1032,23 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     RequestBody requestBody = new FormBody.Builder().build();
                     String url = InterfaceConsts.REDEEM_POINTS_URL + "?number=" + price + "&type=1";
                     String result = OkHttpRequester.postStringFromServer(url, requestBody, true);
-                    Map map = JSON.parseObject(result);
-                    if (map.get("code").equals(1)) {
+                    map = JSON.parseObject(result);
+                    if (map.get("code").equals("1")) {
+                        UserInfo u = App.getInstance().getUser();
+                        u.setMoney(String.valueOf(Double.parseDouble(u.getMoney()) - Double.parseDouble(price)));
+                        u.setCoin(String.valueOf(Double.parseDouble(u.getCoin()) + Double.parseDouble(price)*Integer.parseInt(u.getIntegral())));
+                        UserInfo u2 = App.getInstance().getUser();
                         handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_SUCCESS, map.get("message"));
                     } else {
                         handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_FALIURE, map.get("message"));
                     }
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -1056,10 +1089,10 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     String url = InterfaceConsts.REDEEM_POINTS_URL + "?number=" + price + "&type=2";
                     String result = OkHttpRequester.postStringFromServer(url, requestBody, true);
                     Map map = JSON.parseObject(result);
-                    if (map.get("code").equals(1)) {
+                    if (map.get("code").equals("1")) {
                         UserInfo u = App.getInstance().getUser();
                         u.setBalance(String.valueOf((Double.parseDouble(u.getBalance()) - Double.parseDouble(price))));
-                        App.getInstance().setUser(u);
+                        u.setMoney(String.valueOf(Double.parseDouble(u.getMoney()) + Double.parseDouble(price)*Integer.parseInt(u.getGame())));
                         handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_SUCCESS, map.get("message"));
                     } else {
                         handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_FALIURE, map.get("message"));
@@ -1076,11 +1109,12 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     RequestBody requestBody = new FormBody.Builder().build();
                     String url = InterfaceConsts.EXCHANGE_INTEGRAL_URL + "?number=" + amount + "&phone=" + targetUser;
                     String result = OkHttpRequester.postStringFromServer(url, requestBody, true);
-                    Map map = JSON.parseObject(result);
+                    map = JSON.parseObject(result);
                     if (map.get("code").equals("1")) {
                         UserInfo userInfo = App.getInstance().getUser();
                         userInfo.setBalance(String.valueOf((Double.parseDouble(userInfo.getMoney()) - Double.parseDouble(amount))));
@@ -1090,36 +1124,23 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         handlerSendMsg(handler, HandlerWhat.TRANSFER_BALANCE_FALIURE, map.get("message"));
                     }
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.TRANSFER_BALANCE_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.TRANSFER_BALANCE_FALIURE, map.get("message"));
                 }
             }
         }).start();
     }
 
     @Override
-    public void getLuckyNumber(final Handler handler, final String caiType) {
+    public void getLuckyNumber(final Handler handler) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                /*try {
-                    Lottery lottery = App.getInstance().getLottery();
-
-                    String luckyResult = OkHttpRequester.getStringFromServer(InterfaceConsts.GET_LUCKY_NUMBER_CODE + "?province=" + caiType, false);
-                    Map map = JSON.parseObject(JSON.parseObject(luckyResult).getString("data"), HashMap.class);
-                    lottery.setCaiQishu(map.get("issue").toString());
-                    String num = map.get("code").toString();
-                    lottery.setKjsj(DateUtil.formatToStr1((Long) map.get("createTime")));
-                    lottery.setJssj(DateUtil.formatToStr1((Long) map.get("endtime")));
-                    lottery.setCount(map.get("number").toString());
-                    lottery.setCaiNumber(num);
-                    if (num != null && !TextUtils.isEmpty(num)) {
-                        lottery.setCaiNumArray(num.split(" "));
-                    }
-                    App.getInstance().setLottery(lottery);
-                    handlerSendMsg(handler, HandlerWhat.GET_LUCKYNUM_SUCCESS, lottery);
+                try {
+                    handlerSendMsg(handler, HandlerWhat.GET_LUCKYNUM_SUCCESS, App.getInstance().getLottery());
                 } catch (Exception e) {
+                    e.printStackTrace();
                     handlerSendMsg(handler, HandlerWhat.GET_LUCKYNUM_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
-                }*/
+                }
             }
         }).start();
 
@@ -1130,13 +1151,14 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String resultObject = "";
                 try {
                     String caizhong = "gd";
                     if (caiType != null && !caiType.equals(""))
                         caizhong = CaiUtil.getCaiBm(caiType);
 
                     String url = InterfaceConsts.TREND_ALL_URL + "?province=" + caizhong;
-                    String resultObject = OkHttpRequester.getStringFromServer(url, false);
+                    resultObject = OkHttpRequester.getStringFromServer(url, false);
                     JSONArray result = JSON.parseArray(JSON.parseObject(resultObject).get("data").toString());
                     KaiJiang_11x5Dao kaiJiang_11x5Dao = new KaiJiang_11x5Dao();
 
@@ -1149,7 +1171,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     handlerSendBundleMsg(handler, HandlerWhat.GET_KAIJIANG_SUCCESS, ReturnStatus.KEY_GET_KAIJIANG_LIST, lists);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_KAIJIANG_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_KAIJIANG_FALIURE, JSON.parseObject(resultObject).getString("message"));
                 }
             }
         }).start();
@@ -1204,6 +1226,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String strPlan = null;
                 try {
                     ResultBean resultBean = new ResultBean();
                     RequestBody requestBody = new FormBody.Builder().build();
@@ -1211,10 +1234,10 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     List<ImageInfo> imgLists = JSON.parseArray(JSON.parseObject(resultImg).getString("data"), ImageInfo.class);
                     resultBean.setImgLists(imgLists);
 
-                    List<NoticeInfo> noticeLists = JSON.parseArray(JSON.parseObject(resultImg).getString("data"), NoticeInfo.class);
+                    /*List<NoticeInfo> noticeLists = JSON.parseArray(JSON.parseObject(resultImg).getString("data"), NoticeInfo.class);
                     resultBean.setNoticeLists(noticeLists);
 
-                    /*ResultBean.Channel homeChannel1 = resultBean.new Channel(1, R.mipmap.ic_home_01, "盈利季度榜"); //
+                    ResultBean.Channel homeChannel1 = resultBean.new Channel(1, R.mipmap.ic_home_01, "盈利季度榜"); //
                     ResultBean.Channel homeChannel2 = resultBean.new Channel(2, R.mipmap.ic_home_02, "盈利月榜");
                     ResultBean.Channel homeChannel3 = resultBean.new Channel(3, R.mipmap.ic_home_03, "盈利周榜");
                     ResultBean.Channel homeChannel4 = resultBean.new Channel(4, R.mipmap.ic_home_lxkf, "联系客服");
@@ -1225,40 +1248,14 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     homeChannelLists.add(homeChannel4);
                     resultBean.setChannelLists(homeChannelLists);*/
 
-                    Lottery lottery = App.getInstance().getLottery();
-                    UserInfo user = App.getInstance().getUser();
-                    if (user != null) {
-                        lottery.setCaiType(caiType);
-                        lottery.setCaiTypeMc(CaiUtil.getCaiMcShort(caiType));
-                        lottery.setDianBi(user.getMoney());
-                        lottery.setJiFen(user.getCoin());
-                        lottery.setYue(user.getBalance());
-
-                        String luckyResult = OkHttpRequester.getStringFromServer(InterfaceConsts.GET_LUCKY_NUMBER_CODE + "?province=" + caiType, false);
-                        Map map = JSON.parseObject(JSON.parseObject(luckyResult).getString("data"), HashMap.class);
-                        lottery.setCaiQishu(map.get("issue").toString());
-                        String num = map.get("code").toString();
-                        lottery.setKjsj(DateUtil.formatToStr1((Long) map.get("createTime")));
-                        lottery.setJssj(DateUtil.formatToStr1((Long) map.get("endtime")));
-                        lottery.setCount(map.get("number").toString());
-                        lottery.setCaiNumber(num);
-                        if (num != null && !TextUtils.isEmpty(num)) {
-                            lottery.setCaiNumArray(num.split(" "));
-                        }
-
-                        Lottery l = App.getInstance().getLottery();
-                        System.out.println("app:" + App.getInstance().getLottery());
-                    }
-                    resultBean.setLottery(lottery);
-
-                    String strPlan = OkHttpRequester.getStringFromServer(InterfaceConsts.PLAN_ALL_URL, false);
+                    strPlan = OkHttpRequester.getStringFromServer(InterfaceConsts.PLAN_ALL_URL, false);
                     List<ResultBean.LotteryPlan> lotteryPlanList = JSON.parseArray(JSON.parseObject(strPlan).getString("data"), ResultBean.LotteryPlan.class);
                     resultBean.setLotteryPlanList(lotteryPlanList);
 
                     handlerSendMsg(handler, HandlerWhat.GET_HOMEDATA_SUCCESS, resultBean);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_HOMEDATA_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_HOMEDATA_FALIURE, JSON.parseObject(strPlan).getString("message"));
                 }
             }
 
@@ -1658,7 +1655,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
      * @param handler      消息处理
      * @param beginCount   倍数
      * @param danBeiCount  单倍注数
-     * @param sliderBonus  单倍奖金
+     * @param sliderBonus  积分奖励
      * @param minRate      盈利率
      * @param planPostCout 即将开奖的期数
      */
@@ -1674,17 +1671,18 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     double chengBen = danBeiCount * 2;
                     //盈利/成本
                     if (chengBen >= sliderBonus) {
-                        handlerSendMsg(handler, HandlerWhat.GET_FASCLIST_FALIURE, "当前计划不会有盈利！");
+                        handlerSendMsg(handler, HandlerWhat.GET_FASCLIST_FALIURE, "当前方案不会有盈利！");
                         return;
                     }
                     //double d = (((double)sliderBonus - chengBen) / chengBen) * 100;
                     if ((((double) sliderBonus - chengBen) / chengBen) * 100 < minRate) {
-                        handlerSendMsg(handler, HandlerWhat.GET_FASCLIST_FALIURE, "当前计划设置的盈利率过高！");
+                        handlerSendMsg(handler, HandlerWhat.GET_FASCLIST_FALIURE, "当前方案设置的盈利率过高！");
                         return;
                     }
                     double zqBeishu = beginCount;//这期的倍数
                     double zcLeij = beginCount * (danBeiCount * 2);//这期累计成本
-                    String tobegin = CaiUtil.getNextPeriod();
+//                    String tobegin = CaiUtil.getNextPeriod();
+                    String tobegin = String.valueOf(Integer.parseInt(App.getInstance().getLottery().getCaiQishu()) + 1);
                     DecimalFormat df = new DecimalFormat("0.00");
                     for (int i = 1; i <= planPostCout; i++) {
                         PlanBeiInfo plan = new PlanBeiInfo();
@@ -1745,10 +1743,11 @@ public class Jc11x5Thread implements Jc11x5Interface {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Map map = null;
                 try {
                     String planId = StrUtil.createRandomGUID().toLowerCase();
-                    //投注时间限制
-                    //开奖前1分钟停止投注
+                    //详情内容时间限制
+                    //开奖前1分钟停止详情内容
                     String nextQ = CaiUtil.getNextPeriod();
                     PlanInfo plan = new PlanInfo();
                     plan.setId(planId);
@@ -1773,7 +1772,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     planDetails.setBonus(sliderBonus);
                     boolean isSingle = json.getBoolean("isSingle");
                     if (isSingle) {//单期购买
-                        plan.setEndOrder(nextQ);
+                        plan.setEndOrder(String.valueOf(Integer.parseInt(App.getInstance().getLottery().getCaiQishu()) + 1));
                         plan.setOrderTotal(1);
                         int beishu = json.getInteger("beishu");
                         plan.setMultiples(String.valueOf(beishu));
@@ -1784,11 +1783,11 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         }
                     } else {//追号
                         if (planBeiInfos == null || planBeiInfos.size() == 0) {
-                            handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "追号模式需要先生成计划后购买！");
+                            handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "追号模式需要先生成方案后购买！");
                             return;
                         }
                         if (!plan.getBeginOrder().equals(planBeiInfos.get(0).getIssue())) {
-                            handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "第" + plan.getBeginOrder() + "期投注已结束，请重新生成后购买!");
+                            handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "第" + plan.getBeginOrder() + "期详情内容已结束，请重新生成后购买!");
                             return;
                         }
                         plan.setEndOrder(planBeiInfos.get(planBeiInfos.size() - 1).getIssue());
@@ -1819,36 +1818,46 @@ public class Jc11x5Thread implements Jc11x5Interface {
                             return soapObject;
                         }
                     });*/
-                    JSONObject object = new JSONObject();
+                    String multiples = "";
+                    if (planBeiInfos.size() > 1) {
+                        for (int i = 0; i < planBeiInfos.size(); i++) {
+                            if (i == (planBeiInfos.size() - 1))
+                                multiples += planBeiInfos.get(i).getMultiple() + "-";
+                            else
+                                multiples += planBeiInfos.get(i).getMultiple();
+                        }
+                    } else {
+                        multiples += planBeiInfos.get(0).getMultiple();
+                    }
+                    JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(planBeiInfos));
                     JSONObject jsonObject = new JSONObject();
+                    String planName = CaiUtil.getCaiMcShort(plan.getCaiType()) + "_任五_" + json.get("danBeiCount") + "_" + planBeiInfos.get(0).getIssue().substring(6, 8);
                     jsonObject.put("lotteryType", plan.getCaiType());
-                    jsonObject.put("planName", json.get("planName").toString());
-                    jsonObject.put("visType", plan.getVisType());
+                    jsonObject.put("planName", planName);
+                    jsonObject.put("zhuCount", json.get("danBeiCount"));
                     jsonObject.put("beginOrder", plan.getBeginOrder());
                     jsonObject.put("EndOrder", plan.getEndOrder());
-                    jsonObject.put("currentOrder", plan.getCurrentOrder());
-                    JSONArray jsonArray = JSONArray.parseArray(JSON.toJSONString(planBeiInfos));
-                    object.put("planInfo", jsonObject);
-                    object.put("PlanBeiInfo", jsonArray);
+                    jsonObject.put("checkPrice", json.get("checkPrice"));
+                    jsonObject.put("multiples", multiples);
+                    jsonObject.put("totalCost", planBeiInfos.get(planBeiInfos.size()-1).getTotalAmount());
+                    jsonObject.put("minIncome", json.get("minlncome"));
+                    jsonObject.put("planContent", json.get("postContent"));
                     RequestBody requestBody = new FormBody.Builder()
-                            .add("planInfo", jsonObject.toJSONString())
-//                            .add("PlanBeiInfo", jsonArray.toJSONString())
+                            .add("planInfo", jsonObject.toString())
+                            .add("beiInfo", jsonArray.toString())
+                            .add("type", json.get("selectType").toString())
                             .build();
-
                     String url = InterfaceConsts.RELEASE_PLAN_URL;
                     String result = OkHttpRequester.postStringFromServer(url, requestBody, true);
-                    if (result.equals("1")) {
-                        handlerSendMsg(handler, HandlerWhat.GET_TZLIST_SUCCESS, "计划发布成功！");
-                    } else if (result.equals("-2")) {
-                        handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "第" + plan.getBeginOrder() + "期投注已结束，请待开奖后请重新生成计划投注！");
-                    } else if (result.equals("-1")) {
-                        handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "账号余额不足！");
-                    } else if (result.equals("-3")) {
-                        handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, "该方案不能盈利，请减少号码注数！");
+                    map = JSON.parseObject(result, HashMap.class);
+                    if (map.get("code").equals("1")) {
+                        handlerSendMsg(handler, HandlerWhat.GET_TZLIST_SUCCESS, map.get("message"));
+                    } else {
+                        handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, map.get("message"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_TZLIST_FALIURE, map.get("message"));
                 }
             }
         }).start();
@@ -1877,7 +1886,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         cal.setProfitPer(Double.parseDouble(df.format((float) ((bonus * multiple) - cal.getTotalCost()) * 100 / cal.getTotalCost())));
                         calcInfos.add(cal);
                     } else {
-                        handlerSendMsg(handler, HandlerWhat.GET_CALCPROFITPER_FALIURE, "您设置的盈利过高或起始倍数过低，首期计划不能达到盈利要求，请调整！");
+                        handlerSendMsg(handler, HandlerWhat.GET_CALCPROFITPER_FALIURE, "您设置的盈利过高或起始倍数过低，首期方案不能达到盈利要求，请调整！");
                         return;
                     }
                     for (int i = 2; i <= orderCount; i++) {
@@ -1888,7 +1897,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         //这次累计
                         double zcLeij = leij + (zqBeishu * chengBen);
                         if (zcLeij > 9999999) {
-                            handlerSendMsg(handler, HandlerWhat.GET_CALCPROFITPER_FALIURE, "最大成本已超过9999999请调整计划！");
+                            handlerSendMsg(handler, HandlerWhat.GET_CALCPROFITPER_FALIURE, "最大成本已超过9999999请调整方案！");
                             return;
                         }
 
@@ -1939,7 +1948,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         cal.setProfitPer(Double.parseDouble(df.format((float) (bonus * multiple - cal.getTotalCost()) * 100 / cal.getTotalCost())));
                         calcInfos.add(cal);
                     } else {
-                        handlerSendMsg(handler, HandlerWhat.GET_CALCPROFIT_FALIURE, "您设置的盈利过高或起始倍数过低，首期计划不能达到盈利要求，请调整！");
+                        handlerSendMsg(handler, HandlerWhat.GET_CALCPROFIT_FALIURE, "您设置的盈利过高或起始倍数过低，首期方案不能达到盈利要求，请调整！");
                         return;
                     }
                     for (int i = 2; i <= orderCount; i++) {
@@ -1950,7 +1959,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         //这次累计
                         double zcLeij = leij + (zqBeishu * chengBen);
                         if (zcLeij > 9999999) {
-                            handlerSendMsg(handler, HandlerWhat.GET_CALCPROFIT_FALIURE, "最大成本已超过9999999请调整计划！");
+                            handlerSendMsg(handler, HandlerWhat.GET_CALCPROFIT_FALIURE, "最大成本已超过9999999请调整方案！");
                             return;
                         }
 

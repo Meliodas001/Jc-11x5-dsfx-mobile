@@ -32,7 +32,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="彩        种："/>
+                    android:text="游戏玩法："/>
                 <TextView
                     android:id="@+id/tv_cai"
                     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="计划名称："/>
+                    android:text="方案名称："/>
                 <TextView
                     android:id="@+id/tv_plan_mc"
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="计划签名："/>
+                    android:text="方案签名："/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="计划期数："/>
+                    android:text="方案期数："/>
                 <TextView
                     android:id="@+id/tv_orderTotal"
                     android:layout_width="match_parent"
@@ -183,7 +183,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="中奖状态："/>
+                    android:text="正确状态："/>
                 <TextView
                     android:id="@+id/tv_state"
                     android:layout_width="match_parent"
@@ -221,7 +221,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="计划类型："/>
+                    android:text="方案类型："/>
                 <TextView
                     android:id="@+id/tv_planType"
                     android:layout_width="match_parent"

@@ -10,9 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.jingcai.jc_11x5.R;
 import com.jingcai.jc_11x5.app.App;
 import com.jingcai.jc_11x5.business.Jc11x5Factory;
+import com.jingcai.jc_11x5.business.impl.WebSocketServer;
 import com.jingcai.jc_11x5.consts.Constants;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.entity.CaiZhong;
@@ -36,6 +39,8 @@ import com.jingcai.jc_11x5.view.widget.ProgressWidget;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import java.util.Map;
 
 public class LoginActivity extends BaseActivity {
 
@@ -138,6 +143,8 @@ public class LoginActivity extends BaseActivity {
         switch (msg.what) {
             case HandlerWhat.LOGIN_SUCCESS:
                 ProgressWidget.dismissProgressDialog();
+                WebSocketServer.getSocketClient();
+                WebSocketServer.sendMsg(App.getInstance().getUser().getCaizhong());
                 user = app.getUser();
                 setPreference();
                 startNewActivity(MainActivity.class);
@@ -244,12 +251,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void requestForLogin() {
+        String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+        user.setMac(ANDROID_ID);
         ProgressWidget.showProgressDialog(this, "正在加载中...");
         Jc11x5Factory.getInstance().login(handler, user, isFirstRun);
     }
 
     private void showCaiZhongList() {
-        String title = "请选择彩种：";
+        String title = "游戏玩法：";
         final DmAdapter dmadapter = new DmAdapter(this, CaiUtil.getCaiZhongList());
         dialogWiget.showListview(this, title, dmadapter, new AdapterView.OnItemClickListener() {
 
@@ -271,8 +280,16 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void zaiXianGouMai() {
+    private void wangJiMiMa() {
         startNewActivityForForResult(ForgetPasswordActivity.class, 1012);
+    }
+
+    private void zaiXianGouMai() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_QQ)));
+        } catch (Exception e){
+            showMsg("请检查是否安装QQ！");
+        }
     }
 
     @Override
@@ -315,6 +332,6 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tv_wjmm)
     public void onViewClicked() {
-        zaiXianGouMai();
+        wangJiMiMa();
     }
 }

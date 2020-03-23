@@ -63,31 +63,25 @@ public class LvBalanceAdapter extends PoweredAdapter<BalanceChangeRecord> {
                 text = "充值";
                 break;
             case 3:
-                text = "投注";
+                text = "自助兑换";
                 break;
             case 4:
-                text = "中奖";
-                break;
-            case 5:
-                text = "撤单";
-                break;
-            case 6:
-                text = "赠送";
-                break;
-            case 7:
                 text = "购买方案";
                 break;
+            case 5:
+                text = "购买套餐";
+                break;
+            case 6:
+                text = "游戏币转出";
+                break;
+            case 7:
+                text = "游戏币转入";
+                break;
             case 8:
-                text = "方案收入";
+                text = "详情内容";
                 break;
             case 9:
-                text = "兑换积分";
-                break;
-            case 10:
-                text = "无忧币转出";
-                break;
-            case 11:
-                text = "无忧币转入";
+                text = "正确";
                 break;
         }
         return text;

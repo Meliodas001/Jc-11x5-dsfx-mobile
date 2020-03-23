@@ -11,12 +11,12 @@ public class PlantformProfit implements Serializable {
 
     private String id; //
     private String payUserId; //支付者用户ID
-    private String planId; //计划编号
+    private String planId; //方案编号
     private String payTime; //支付时间
     private String payBean; //支付点币
     private String ptProfit; //平台收益
     private String planProfit; //方案员收益
-    private Integer payType; //收益类型 1： 计划分润收益  2： 积分兑换收益
+    private Integer payType; //收益类型 1： 方案分润收益  2： 积分兑换收益
 
     public String getId() {
         return id;

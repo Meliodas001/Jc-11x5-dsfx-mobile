@@ -115,6 +115,7 @@ public class FafbFragment extends BaseFragment {
     private Lottery lottery;
     private int defaultCount = 5;
     private boolean isSingle = true;
+    private int selectType = 1;
     private DialogWiget dialogWiget;
 
     private GvNumAdapter numGvAdapter;
@@ -146,8 +147,8 @@ public class FafbFragment extends BaseFragment {
         app = App.getInstance();
         mClipboardManager = (ClipboardManager) mContext.getSystemService(CLIPBOARD_SERVICE);
         user = app.getUser();
-        lottery = app.getLottery();
         dialogWiget = new DialogWiget();
+        lottery = app.getLottery();
         ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getKjsj());//第一期开始时间
         jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getJssj());//最后一期开始时间
         mHandle = new LintHandler(this) {
@@ -164,8 +165,12 @@ public class FafbFragment extends BaseFragment {
 
         tvTitle.setText("任选五单式");
         tvTitle.setTag(1);
-        tvJiangjin.setText("840");
+//        tvJiangjin.setText("");
         etHaoma.setLongClickable(false);
+
+        lottery = app.getLottery();
+        ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getKjsj());//第一期开始时间
+        jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getJssj());//最后一期开始时间
 
         Drawable nav_up = getResources().getDrawable(R.mipmap.downarrow_white);
         nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
@@ -180,8 +185,7 @@ public class FafbFragment extends BaseFragment {
             tvKj4.setText(array[3]);
             tvKj5.setText(array[4]);
         }
-        tvJifen.setText(lottery.getJiFen());
-        tvDianbi.setText(lottery.getDianBi());
+        tvJifen.setText(user.getCoin());
         tvDianbi.setText(user.getMoney());
         numGvAdapter = new GvNumAdapter(mContext, new PlanFabu().getHaoMaList(), gvXuanHao);
         gvXuanHao.setAdapter(numGvAdapter);
@@ -208,16 +212,16 @@ public class FafbFragment extends BaseFragment {
                 }
                 if (state == -2) {
                     int count = numGvAdapter.getSelectNumCount();
-                    if(count<defaultCount){
+                    if (count < defaultCount) {
                         tvZhu.setText("0");
                         tvJf.setText("0");
                         return;
                     }
-                    if(planType == 10 || planType == 8){
+                    if (planType == 10 || planType == 8) {
                         zhushu = (int) getAZhushu(defaultCount, count);
                         tvZhu.setText(String.valueOf(zhushu));
                         tvJf.setText(String.valueOf(zhushu * 2));
-                    }else{
+                    } else {
                         zhushu = (int) getCZhushu(defaultCount, count);
                         tvZhu.setText(String.valueOf(zhushu));
                         tvJf.setText(String.valueOf(zhushu * 2));
@@ -235,7 +239,7 @@ public class FafbFragment extends BaseFragment {
     }
 
     public long getAZhushu(int m, int n) {
-        if(n == 0){
+        if (n == 0) {
             return 0;
         }
         return getNFactorial1(n) / getNFactorial1(n - m);
@@ -287,11 +291,11 @@ public class FafbFragment extends BaseFragment {
                 String[] array = endStr.trim().split(" ");
                 if (array.length > defaultCount && !str.endsWith("\n")) {
                     int wz = str.lastIndexOf("\n") + endStr.lastIndexOf(" ");
-                    s.replace(wz+1, wz + 2, "\n");
+                    s.replace(wz + 1, wz + 2, "\n");
                 }
                 int zhu = etHaoma.getText().toString().trim().split("\n").length;
                 tvZhu.setText(String.valueOf(zhu));
-                tvJf.setText(String.valueOf(zhu*2));
+                tvJf.setText(String.valueOf(zhu * 2));
             }
         });
     }
@@ -338,9 +342,9 @@ public class FafbFragment extends BaseFragment {
         try {
             switch (msg.what) {
                 case HandlerWhat.GET_LUCKYNUM_SUCCESS:
-                    lottery = (Lottery) msg.obj;
+                   /* lottery = (Lottery) msg.obj;
                     if (lottery == null) {
-                        lottery = App.getInstance().getLottery();
+                        Jc11x5Factory.getInstance().getLuckyNumber(mHandle);
                         return;
                     }
                     String order = lottery.getCaiQishu();
@@ -354,7 +358,7 @@ public class FafbFragment extends BaseFragment {
                             tvKj4.setText(array[3]);
                             tvKj5.setText(array[4]);
                         }
-                        if(!isHidden){
+                        if (!isHidden) {
                             PromptUtil.startAlarm(mContext);
                         }
                         if (order.substring(6).equals(lottery.getCount())) {
@@ -372,10 +376,18 @@ public class FafbFragment extends BaseFragment {
                         }
                     } else {
                         mHandle.sendEmptyMessageDelayed(10, 30000);
-                    }
+                    }*/
                     break;
                 case 10:
-                    Jc11x5Factory.getInstance().getLuckyNumber(mHandle, lottery.getCaiType());
+                    Lottery lo = app.getLottery();
+                    if (lo.getNew()) {
+                        if (!isHidden)
+                            PromptUtil.startAlarm(mContext);
+                        lo.setNew(false);
+                        initView();
+                    } else {
+                        mHandle.sendEmptyMessageDelayed(10, 1000);
+                    }
                     break;
                 case 9:
                     dt = dt - 1000;
@@ -395,42 +407,35 @@ public class FafbFragment extends BaseFragment {
                     if (dt <= 500) {
                     /*getDjs();
                     Jc11x5Factory.getInstance().getLuckyNumber(mHandle, lottery.getCaiType());*/
-                        String cq = lottery.getCaiQishu();
-                        if (cq == null || TextUtils.isEmpty(cq)) {
-                            Jc11x5Factory.getInstance().getLuckyNumber(mHandle, lottery.getCaiType());
-                            break;
+                        String caiQishu = lottery.getCaiQishu();
+                        tvKjqs.setText(lottery.getCaiTypeMc() + " 第" + caiQishu + "期");
+                        int nextQishu = Integer.parseInt(caiQishu.substring(6)) + 1;
+                        if(nextQishu <= Integer.parseInt(lottery.getCount())){
+                            tvDjs.setText("第" + nextQishu + "期正在开奖中");
+                            mHandle.sendEmptyMessageDelayed(10, 1000);
+                        }else{
+                            tvDjs.setText("今天开奖已结束");
+                            mHandle.sendEmptyMessageDelayed(11, 120000);
                         }
-                        if (cq.substring(6, 8).equals(lottery.getCount())) {
-                            tvKjqs.setText(lottery.getCaiTypeMc() + " 第" + lottery.getCaiQishu() + "期");
-                            long ctime = DateUtil.getNowMills();//当前时间
-                            long nextTime = DateUtil.parseTimeToMillis(DateUtil.getMingtianDate() + " 00:00:00");
-                            if (ctime < nextTime) {
-                                tvDjs.setText("今天开奖已结束");
-                                mHandle.sendEmptyMessageDelayed(11, 120000);
-                            } else {
-                                getDjs();
-                            }
-                            return;
-                        } else {
-                            if (!isHidden) {
-                                tvKjqs.setText(lottery.getCaiTypeMc() + " 第" + lottery.getCaiQishu() + "期");
-                            }
-                            //tvKjqs.setText(String.valueOf(Integer.parseInt(cq)+1));
-                        }
-                        tvDjs.setText("正在开奖中");
-                        tvKj1.setText("0");
-                        tvKj2.setText("0");
-                        tvKj3.setText("0");
-                        tvKj4.setText("0");
-                        tvKj5.setText("0");
-                        Jc11x5Factory.getInstance().getLuckyNumber(mHandle, lottery.getCaiType());
+                    }
+                    break;
+                case 11:
+                    long ctime = DateUtil.getNowMills();//当前时间
+                    long nextTime = DateUtil.parseTimeToMillis(DateUtil.getMingtianDate() + " 00:00:00");
+                    if (ctime > jsTime && ctime < nextTime) {
+                        mHandle.sendEmptyMessageDelayed(11, 120000);
+                    } else {
+                        ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getKjsj());//第一期开始时间
+                        jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate() + " " + lottery.getJssj());//最后一期开始时间
+                        mHandle.removeCallbacksAndMessages(null);
+                        getDjs();
                     }
                     break;
                 case HandlerWhat.GET_LUCKYNUM_TIMEOUT:
                 case HandlerWhat.GET_LUCKYNUM_FALIURE:
                     break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -442,32 +447,32 @@ public class FafbFragment extends BaseFragment {
 
     private void getDjs() {
         long ctime = DateUtil.getNowMills();//当前时间
-        int orderNo = 0;
-        if (ctime > jsTime) {
+        int orderNo = CaiUtil.getCurrentPeriod();
+        /*if (ctime > jsTime) {
             if (tvDjs != null) {
                 tvDjs.setText("今天开奖已经结束");
             }
             mHandle.removeCallbacksAndMessages(null);
             return;
-        }
+        }*/
         if (ctime < ksTime) {
             dt = ksTime - ctime;
         } else {
-            long kjsj = (ctime - ksTime) % (10 * 60 * 1000);
-            dt = 10 * 60 * 1000 - kjsj;
+            long kjsj = (ctime - ksTime) % (20 * 60 * 1000);
+            dt = 20 * 60 * 1000 - kjsj;
         }
-        if (orderNo >= Integer.parseInt(lottery.getCount())) {
+        /*if (orderNo >= Integer.parseInt(lottery.getCount())) {
             if (tvDjs != null) {
                 tvDjs.setText("今天开奖已经结束");
             }
             mHandle.removeCallbacksAndMessages(null);
             return;
-        }
+        }*/
         //dt = 5000;
     }
 
     private void showCaiZhongList() {
-        String title = "请选择彩种：";
+        String title = "游戏玩法：";
         final DmAdapter dmadapter = new DmAdapter(mContext, CaiUtil.getPlanCaiList());
         dialogWiget.showListview(mContext, title, dmadapter, new AdapterView.OnItemClickListener() {
 
@@ -482,7 +487,7 @@ public class FafbFragment extends BaseFragment {
                     String bm = entity.getCaiBm();
                     tvTitle.setTag(bm);
                     switch (bm) {
-                        case "1":
+                        /*case "1":
                             defaultCount = 5;
                             planType = 4;
                             tvJiangjin.setText("840");
@@ -506,14 +511,14 @@ public class FafbFragment extends BaseFragment {
                             defaultCount = 2;
                             planType = 9;
                             tvJiangjin.setText("100");
-                            break;
+                            break;*/
                     }
                     if (rbChoose.isChecked()) {
-                        if(planType == 10 || planType == 8){
+                        if (planType == 10 || planType == 8) {
                             zhushu = (int) getAZhushu(defaultCount, numGvAdapter.getSelectNumCount());
                             tvZhu.setText(String.valueOf(zhushu));
                             tvJf.setText(String.valueOf(zhushu * 2));
-                        }else{
+                        } else {
                             zhushu = (int) getCZhushu(defaultCount, numGvAdapter.getSelectNumCount());
                             tvZhu.setText(String.valueOf(zhushu));
                             tvJf.setText(String.valueOf(zhushu * 2));
@@ -544,6 +549,7 @@ public class FafbFragment extends BaseFragment {
             etHaoma.setText("");
             tvZhu.setText("");
             tvJf.setText("");
+            selectType = 1;
         }
     }
 
@@ -555,6 +561,7 @@ public class FafbFragment extends BaseFragment {
             rlPaste.setVisibility(View.VISIBLE);
             tvZhu.setText("");
             tvJf.setText("");
+            selectType = 2;
         }
     }
 
@@ -610,7 +617,7 @@ public class FafbFragment extends BaseFragment {
         }
         int zhu = etHaoma.getText().toString().split("\n").length;
         tvZhu.setText(String.valueOf(zhu));
-        tvJf.setText(String.valueOf(zhu*2));
+        tvJf.setText(String.valueOf(zhu * 2));
     }
 
     @OnClick(R.id.bt_clean)
@@ -626,21 +633,21 @@ public class FafbFragment extends BaseFragment {
             return;
         }
         String postContent = "";
-        if(rbChoose.isChecked()){
+        if (rbChoose.isChecked()) {
             String haoma = numGvAdapter.getSelectNum().trim();
             if (TextUtils.isEmpty(haoma)) {
                 showMsg("请选择号码！");
                 return;
             }
-            if(planType == 10){
+            if (planType == 10) {
                 postContent = FilteHmUtil.getQian3(haoma);
-            }else if( planType == 8){
+            } else if (planType == 8) {
                 postContent = FilteHmUtil.getQian2(haoma);
-            }else{
+            } else {
                 postContent = zuHeHaoma(haoma, defaultCount);
             }
         }
-        if(rbPaste.isChecked()){
+        if (rbPaste.isChecked()) {
             postContent = etHaoma.getText().toString().trim();
             if (TextUtils.isEmpty(postContent)) {
                 showMsg("请填写号码！");
@@ -657,16 +664,20 @@ public class FafbFragment extends BaseFragment {
                 postContent = postContent.substring(0, postContent.length() - 1);
             }
         }
-        int zhu = postContent.split("\n").length;
-        Bundle bundle = new Bundle();
-        bundle.putString("leixing", tvTitle.getText().toString());
-        bundle.putInt("planType", planType);
-        bundle.putString("zhushu", String.valueOf(zhu));
-        bundle.putString("danbeiJj", tvJiangjin.getText().toString());
-        bundle.putString("postContent", postContent);
-        bundle.putString("checkPrice", etFajia.getText().toString());
-        //bundle.putBoolean("isSingle", isSingle);
-        startNewActivityForResultWithBundle(mContext, TouZhuActivity.class, bundle, 1001);
+        String tvJ = tvJiangjin.getText().toString();
+        if (isJiangjin(tvJ)) {
+            int zhu = postContent.split("\n").length;
+            Bundle bundle = new Bundle();
+            bundle.putString("leixing", tvTitle.getText().toString());
+            bundle.putInt("planType", planType);
+            bundle.putString("zhushu", String.valueOf(zhu));
+            bundle.putString("danbeiJj", tvJ);
+            bundle.putString("postContent", postContent);
+            bundle.putString("checkPrice", etFajia.getText().toString());
+            bundle.putString("selectType", String.valueOf(selectType));
+            //bundle.putBoolean("isSingle", isSingle);
+            startNewActivityForResultWithBundle(mContext, TouZhuActivity.class, bundle, 1001);
+        }
     }
 
     @Override
@@ -697,9 +708,24 @@ public class FafbFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.isHidden = hidden;
-        if(!hidden){
+        if (!hidden) {
             user = app.getUser();
         }
     }
 
+    private boolean isJiangjin(String tvJ) {
+        if (tvJ.equals("")) {
+            showMsg("请填写积分奖励");
+            return false;
+        }
+        if (tvJ.equals("0")) {
+            showMsg("积分奖励不能为0");
+            return false;
+        }
+        if (Integer.parseInt(tvJ) > 900) {
+            showMsg("积分奖励不能大于900");
+            return false;
+        }
+        return true;
+    }
 }

@@ -39,7 +39,8 @@ public class LvJobPriceAdapter extends PoweredAdapter<JobPrice> {
         }
         final JobPrice item = getItem(position);
 
-        vh.tvJobType.setText(getTypeMc(item.getState()) + " " + item.getDays() + " 天");
+//        vh.tvJobType.setText(getTypeMc(item.getState()) + " " + item.getDays() + " 天");
+        vh.tvJobType.setText(item.getDays() + " 天卡");
         vh.tvPrice.setText(item.getPrice() + " 无忧币");
         vh.tvPay.setOnClickListener(new View.OnClickListener() {
             @Override

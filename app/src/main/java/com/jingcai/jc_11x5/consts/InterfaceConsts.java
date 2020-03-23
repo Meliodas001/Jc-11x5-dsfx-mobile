@@ -9,9 +9,10 @@ public class InterfaceConsts {
 //    public static final String WEB_SERVER_URL = "http://app.b9b.top:8732/Service1/";
     public static final String WEB_SERVER_URL = "http://94.191.70.88/";
     //public static final String WEB_SERVER_URL = "http://192.168.0.102:8732/Service1/";
-    public static final String ROOT = "http://94.191.70.88/";
-//    public static final String ROOT = "http://app.b9b.top/";
+    public static final String ROOT = "http://39.108.153.232:7777/";
+//    public static final String ROOT = "http://e8vmaa.natappfree.cc/";
     public static final String NAMESPACE = "http://tempuri.org/";
+    public static final String WS_URL = "ws://39.108.153.232:9999//socketServer/";
     //public static final String NAMESPACE = "http://39.108.153.232:8732/Service1/";
 
     /* 调用HTTP方法的URL */
@@ -39,7 +40,6 @@ public class InterfaceConsts {
     public static final String GET_LUCKY_NUMBER_CODE = ROOT + "/trend/getNumbers";
     public static final String UPDATE_USER_NAME_URL = ROOT + "/customer/updateNickname";
     public static final String LOGIN_OUT_URl = ROOT + "/customer/loginOut";
-    public static final String WS_URL = "ws://94.191.70.88:80/socketServer/";
 
     /* 以下为调用接口的方法名称 webservice */
     public static final String GetBanben = "GetBanben";

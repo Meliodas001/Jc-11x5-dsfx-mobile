@@ -7,12 +7,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.*;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.jingcai.jc_11x5.R;
@@ -30,12 +29,16 @@ import com.jingcai.jc_11x5.util.AppTool;
 import com.jingcai.jc_11x5.util.CaiUtil;
 import com.jingcai.jc_11x5.util.Html4Text;
 import com.jingcai.jc_11x5.view.widget.DialogWiget;
+import org.java_websocket.WebSocket;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+
+import static com.jingcai.jc_11x5.business.HandlerSendMsg.handlerSendMsg;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -115,6 +118,8 @@ public class WelcomeActivity extends BaseActivity {
         user.setPassWord(pwd);
         user.setCaizhong(caiZhong);
         user.setCaizhongMc(CaiUtil.getCaiMc(caiZhong));
+        String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+        user.setMac(ANDROID_ID);
         if(TextUtils.isEmpty(caiZhong)){
             startNewTaskActivity(this, LoginActivity.class);
             this.finish();
@@ -210,13 +215,10 @@ public class WelcomeActivity extends BaseActivity {
     private void handlerMsg(Message msg) {
         switch (msg.what){
             case HandlerWhat.LOGIN_SUCCESS:
-                WebSocketServer webSocketServer = new WebSocketServer();
-                webSocketServer.initSocketClient();
+                WebSocketServer.getSocketClient();
+                WebSocketServer.sendMsg(App.getInstance().getUser().getCaizhong());
                 startNewActivity(WelcomeActivity.this, MainActivity.class);
                 finish();
-                break;
-            case HandlerWhat.LOGIN_FALIURE:
-                startNewTaskActivity(this, LoginActivity.class);
                 break;
             case HandlerWhat.GET_BANBEN_SUCCESS:
                 //获取版本号成功

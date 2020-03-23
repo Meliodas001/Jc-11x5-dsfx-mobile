@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="计划总数"/>
+            android:text="方案总数"/>
         <TextView
             android:layout_width="1dp"
             android:layout_height="match_parent"

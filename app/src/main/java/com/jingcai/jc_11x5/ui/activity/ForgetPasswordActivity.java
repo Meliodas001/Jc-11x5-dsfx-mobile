@@ -93,9 +93,6 @@ public class ForgetPasswordActivity extends BaseActivity {
                 btnZhuce.setClickable(true);
                 this.finish();
                 break;
-            case HandlerWhat.UPDATE_FORGET_PWD_FALIURE:
-
-                break;
             default:
                 if (msg.obj != null) {
                     showMsg(String.valueOf(msg.obj));
@@ -123,7 +120,7 @@ public class ForgetPasswordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String phone = etPhone.getText().toString();
-                Jc11x5Factory.getInstance().getMassgeCode(handler, phone);
+                Jc11x5Factory.getInstance().getMassgeCode(handler, phone, 2);
                 etGetCode.setEnabled(true);
                 mTimer.start();
             }

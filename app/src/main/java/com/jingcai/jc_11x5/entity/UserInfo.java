@@ -33,7 +33,7 @@ public class UserInfo implements Serializable {
         this.news = news;
     }
 
-    public boolean isVip() {
+    public boolean getVip() {
         return vip;
     }
 

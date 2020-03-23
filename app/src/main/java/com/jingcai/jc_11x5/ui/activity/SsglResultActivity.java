@@ -65,7 +65,7 @@ public class SsglResultActivity extends BaseActivity {
     }
 
     protected void initView() {
-        tvTitle.setText("任5缩水结果");
+        tvTitle.setText("组合过滤结果");
         ivHeaderBack.setVisibility(View.VISIBLE);
 
         TableColumnWeightModel columnModel = new TableColumnWeightModel(6);

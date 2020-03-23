@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PersistableBundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,6 +34,7 @@ import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
 import com.jingcai.jc_11x5.ui.activity.FrActivity;
 import com.jingcai.jc_11x5.ui.activity.LoginActivity;
+import com.jingcai.jc_11x5.ui.activity.NewsActivity;
 import com.jingcai.jc_11x5.ui.fragment.FafbFragment;
 import com.jingcai.jc_11x5.ui.fragment.GrzxFragment;
 import com.jingcai.jc_11x5.ui.fragment.HomeFragment;
@@ -132,6 +134,20 @@ public class MainActivity extends FrActivity {
             switch (msg.what) {
                 case MSG_SINGLE_POINT:
 //                    Jc11x5Factory.getInstance().verifyComputer(mHandler, App.getInstance().getUser());
+                    UserInfo userInfo = App.getInstance().getUser();
+                    String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+                    if (!userInfo.getMac().equals(ANDROID_ID)) {
+                        app.removeActivityStack();
+                        app.setUser(null);
+                        SharedPreferences.Editor edit = getSharedPreferences(Constants.PREFERENCE_USER_KEY, MODE_PRIVATE).edit();
+                        edit.putString(Constants.PREFERENCE_SHARED_PWD, "");
+                        edit.putBoolean(Constants.PREFERENCE_SHARED_AUTO, false);
+                        edit.commit();
+                        String tip = "您的账号已在其他设备登录，您已被迫退出！";
+                        startNewTaskActivity(MainActivity.this, LoginActivity.class, tip);
+                        showMsg("");
+                        finish();
+                    }
                     break;
                 case HandlerWhat.VERIFY_SUCCESS:
                     Object obj = msg.obj;
@@ -167,7 +183,7 @@ public class MainActivity extends FrActivity {
     private static final long DELAY_TIME = 15000;
 
     private void verifyComputer(){
-//        mHandler.sendEmptyMessageDelayed(MSG_SINGLE_POINT, DELAY_TIME);
+        mHandler.sendEmptyMessageDelayed(MSG_SINGLE_POINT, DELAY_TIME);
     }
 
     @Override
@@ -263,8 +279,8 @@ public class MainActivity extends FrActivity {
                 mTabIndicator.get(i).setSelected(false);
             } else {
                 mTabIndicator.get(i).setSelected(true);
-                if(i == 4) {
-                    Jc11x5Factory.getInstance().updateNewsSate(mHandler);
+                if(i == 4 && App.getInstance().getUser().getNews() == 1){
+                    startNewActivity(NewsActivity.class);
                 }
             }
         }

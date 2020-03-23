@@ -79,7 +79,7 @@ public class PlanDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initData();
-        tvTitle.setText("计划详情");
+        tvTitle.setText("方案详情");
         ivHeaderLeft.setVisibility(View.VISIBLE);
 
         setListener();
@@ -118,9 +118,9 @@ public class PlanDetailActivity extends BaseActivity {
         tvPlanJd.setText(String.valueOf(planInfo.getCurrentOrder()));
         int state = planInfo.getState();
         if (state == 1) {
-            tvState.setText("中奖");
+            tvState.setText("正确");
         } else if (state == 2) {
-            tvState.setText("未中");
+            tvState.setText("错误");
         } else {
             tvState.setText("未开");
         }
@@ -211,6 +211,7 @@ public class PlanDetailActivity extends BaseActivity {
                 isUpdate = true;
                 tvHaoma.setText(msg.obj.toString());
                 planInfo.setVisType(5);
+                planInfo.setBuy(true);
                 break;
             default:
                 if (msg.obj != null) {
@@ -272,7 +273,7 @@ public class PlanDetailActivity extends BaseActivity {
         }else{
             dialogWiget.setOKText("支付");
             String price = tvFeiyong.getText().toString();
-            dialogWiget.showCustomMessageQuery(this, "无忧币支付", Html4Text.mk("确定使用"+price+"无忧币，查看该计划内容"));
+            dialogWiget.showCustomMessageQuery(this, "无忧币支付", Html4Text.mk("确定使用"+price+"无忧币，查看该方案内容"));
         }
     }
 

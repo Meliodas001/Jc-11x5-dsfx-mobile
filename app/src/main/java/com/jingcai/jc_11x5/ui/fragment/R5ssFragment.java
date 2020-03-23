@@ -67,7 +67,7 @@ public class R5ssFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        tvTitle.setText("任五缩水过滤");
+        tvTitle.setText("组合过滤");
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerSsgl.setLayoutManager(linearLayoutManager);
         List<SuoShuiFilter> list = initSuoShuiFilterList();

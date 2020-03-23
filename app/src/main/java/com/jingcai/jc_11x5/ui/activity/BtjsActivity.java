@@ -172,15 +172,15 @@ public class BtjsActivity extends BaseActivity {
         String dzjj = etDzjj.getText().toString();
         String yingli = etYl.getText().toString();
         if(TextUtils.isEmpty(tzzs)){
-            showMsg("请填写投注注数！");
+            showMsg("请填写详情内容注数！");
             return;
         }
         if(TextUtils.isEmpty(jhqs)){
-            showMsg("请填写计划期数！");
+            showMsg("请填写方案期数！");
             return;
         }
         if(TextUtils.isEmpty(tzbs)){
-            showMsg("请填写投注倍数！");
+            showMsg("请填写详情内容倍数！");
             return;
         }
         if(TextUtils.isEmpty(dzjj)){

@@ -31,6 +31,7 @@ import com.jingcai.jc_11x5.business.impl.WebSocketServer;
 import com.jingcai.jc_11x5.consts.Constants;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.entity.CaiZhong;
+import com.jingcai.jc_11x5.entity.Lottery;
 import com.jingcai.jc_11x5.entity.ResultBean;
 import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
@@ -145,14 +146,14 @@ public class GrzxFragment extends BaseFragment {
         List<ResultBean.Channel> lists = new ArrayList<>();
         ResultBean resultBean = new ResultBean();
         ResultBean.Channel channel1 = resultBean.new Channel(13, R.mipmap.ic_grzx_zs, "游戏币转赠");
-        ResultBean.Channel channel2 = resultBean.new Channel(14, R.mipmap.ic_grzx_zs, "我要包时");
+        ResultBean.Channel channel2 = resultBean.new Channel(14, R.mipmap.ic_grzx_zs, "游戏时卡");
         ResultBean.Channel channel3 = resultBean.new Channel(1, R.mipmap.ic_grzx_db, "游戏币帐变"); //
         ResultBean.Channel channel4 = resultBean.new Channel(2, R.mipmap.ic_grzx_jf, "积分帐变");
         ResultBean.Channel channel5 = resultBean.new Channel(3, R.mipmap.ic_grzx_yx, "游戏记录");
         ResultBean.Channel channel6 = resultBean.new Channel(10, R.mipmap.ic_grzx_btjs, "计算器");
         ResultBean.Channel channel7 = resultBean.new Channel(12, R.mipmap.ic_grzx_jiaoji, "集合工具");
         ResultBean.Channel channel8 = resultBean.new Channel(8, R.mipmap.ic_grzx_db, "余额兑换");
-        ResultBean.Channel channel9 = resultBean.new Channel(5, R.mipmap.ic_grzx_cai, "图表切换");
+        ResultBean.Channel channel9 = resultBean.new Channel(5, R.mipmap.ic_grzx_cai, "分析图表");
         ResultBean.Channel channel20 = resultBean.new Channel(6, R.mipmap.ic_grzx_xg, "修改密码");
         ResultBean.Channel channel21 = resultBean.new Channel(7, R.mipmap.ic_grzx_share, "分享好友");
         ResultBean.Channel channel22 = resultBean.new Channel(4, R.mipmap.ic_grzx_kf, "在线咨询");
@@ -213,6 +214,7 @@ public class GrzxFragment extends BaseFragment {
                 tvNc.setText(user.getNickName());
                 tvDianbi.setText(user.getMoney());
                 tvJifen.setText(user.getCoin());
+                tvYue.setText(user.getBalance());
                 tvVipTime.setText(user.getVipEndData());
                 ProgressWidget.dismissProgressDialog();
                 showMsg("刷新成功！");
@@ -236,9 +238,8 @@ public class GrzxFragment extends BaseFragment {
         }
         ProgressWidget.dismissProgressDialog();
     }
-
     private void showCaiZhongList() {
-        String title = "请选择彩种：";
+        String title = "游戏玩法：";
         final DmAdapter dmadapter = new DmAdapter(mContext, CaiUtil.getCaiZhongList());
         dialogWiget.showListview(mContext, title, dmadapter, new AdapterView.OnItemClickListener() {
 
@@ -252,13 +253,13 @@ public class GrzxFragment extends BaseFragment {
                     user.setCaizhong(entity.getCaiBm());
                     user.setCaizhongMc(entity.getCaiMc());
                     app.setUser(user);
-                    WebSocketServer webSocketServer = new WebSocketServer();
-                    webSocketServer.initSocketClient();
+                    WebSocketServer.sendMsg(user.getCaizhong());
                     setCaiPreference(entity.getCaiBm());
                     ((MainActivity) mContext).removeFragment(0);
                     ((MainActivity) mContext).removeFragment(1);
                     ((MainActivity) mContext).removeFragment(2);
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -548,7 +549,9 @@ public class GrzxFragment extends BaseFragment {
         tvDianbi.setText(user.getMoney());
         tvJifen.setText(user.getCoin());
         ((MainActivity) mContext).removeFragment(0);
+        ((MainActivity) mContext).removeFragment(1);
         ((MainActivity) mContext).removeFragment(2);
+        ((MainActivity) mContext).removeFragment(3);
     }
 
     @OnClick(R.id.rl_jifen)

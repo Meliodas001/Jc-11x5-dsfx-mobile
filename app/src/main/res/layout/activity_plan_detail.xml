@@ -47,7 +47,7 @@
                     android:paddingTop="@dimen/margin_8"
                     android:paddingBottom="@dimen/margin_8"
                     android:paddingLeft="@dimen/margin_10"
-                    android:text="计划名称："/>
+                    android:text="方案名称："/>
                 <TextView
                     android:id="@+id/tv_plan_mc"
                     android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                     android:paddingTop="@dimen/margin_8"
                     android:paddingBottom="@dimen/margin_8"
                     android:paddingLeft="@dimen/margin_10"
-                    android:text="彩        种："/>
+                    android:text="游戏玩法："/>
                 <TextView
                     android:id="@+id/tv_cai"
                     android:layout_width="1dp"
@@ -141,7 +141,7 @@
                     android:paddingTop="@dimen/margin_8"
                     android:paddingBottom="@dimen/margin_8"
                     android:paddingLeft="@dimen/margin_10"
-                    android:text="计划进度："/>
+                    android:text="方案进度："/>
                 <TextView
                     android:id="@+id/tv_plan_jd"
                     android:layout_width="1dp"
@@ -164,7 +164,7 @@
                     android:paddingTop="@dimen/margin_8"
                     android:paddingBottom="@dimen/margin_8"
                     android:paddingLeft="@dimen/margin_10"
-                    android:text="计划状态："/>
+                    android:text="方案状态："/>
                 <TextView
                     android:id="@+id/tv_state"
                     android:layout_width="1dp"
@@ -224,7 +224,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/margin_2"
-                    android:text="投注内容："/>
+                    android:text="详情内容："/>
                 <TextView
                     android:id="@+id/tv_tznr_bt"
                     android:layout_width="wrap_content"

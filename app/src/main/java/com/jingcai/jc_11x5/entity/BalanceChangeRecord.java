@@ -14,7 +14,7 @@ public class BalanceChangeRecord implements Serializable {
     private Integer ChangeType; //1-充值 2-积分兑换 3.方案收入4-赠送
     private String ChangeVal; //账变金额
     private String CreateTime; //账变时间
-    private String Details; //记录信息-附带计划ID
+    private String Details; //记录信息-附带方案ID
 
     public String getId() {
         return Id;

@@ -49,7 +49,7 @@ public class LvJobDistributeAdapter extends PoweredAdapter<JobDistribute> {
 
         if (jobType == 2) {
             vh.tvNickName.setVisibility(View.VISIBLE);
-            vh.tvNickName.setText("计划昵称：" + item.getPlanNickName());
+            vh.tvNickName.setText("方案昵称：" + item.getPlanNickName());
         } else {
             vh.tvNickName.setVisibility(View.GONE);
         }

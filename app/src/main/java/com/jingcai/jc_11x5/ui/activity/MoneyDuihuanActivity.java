@@ -18,6 +18,7 @@ import com.jingcai.jc_11x5.business.Jc11x5Factory;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
+import com.jingcai.jc_11x5.ui.MainActivity;
 import com.jingcai.jc_11x5.view.widget.ProgressWidget;
 
 import butterknife.Bind;
@@ -102,6 +103,9 @@ public class MoneyDuihuanActivity extends BaseActivity {
                 if (msg.obj != null) {
                     showMsg(String.valueOf(msg.obj));
                 }
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(0);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(1);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(2);
                 ProgressWidget.dismissProgressDialog();
                 Jc11x5Factory.getInstance().getUserInfoByUserName(mHandler, user.getUserName());
                 break;
@@ -111,6 +115,9 @@ public class MoneyDuihuanActivity extends BaseActivity {
                 tvJifen.setText("无忧币："+user.getBalance());
                 etDhCaibi.setText("");
                 tvDhCoin.setText("");
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(0);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(1);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(2);
                 ProgressWidget.dismissProgressDialog();
                 break;
             default:

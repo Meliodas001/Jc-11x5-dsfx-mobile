@@ -51,10 +51,10 @@ public class LvGameAdapter extends PoweredAdapter<PlanDetails> {
         String text = "";
         switch (state){
             case 1:
-                text = "中奖";
+                text = "正确";
                 break;
             case 2:
-                text = "未中";
+                text = "错误";
                 break;
             case 3:
                 text = "未开";

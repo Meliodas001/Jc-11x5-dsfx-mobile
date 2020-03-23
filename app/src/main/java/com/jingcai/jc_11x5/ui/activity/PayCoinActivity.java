@@ -22,6 +22,7 @@ import com.jingcai.jc_11x5.entity.JobPlanner;
 import com.jingcai.jc_11x5.entity.JobPrice;
 import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
+import com.jingcai.jc_11x5.ui.MainActivity;
 import com.jingcai.jc_11x5.view.adapter.LvJobPlannerAdapter;
 import com.jingcai.jc_11x5.view.widget.ProgressWidget;
 
@@ -112,6 +113,9 @@ public class PayCoinActivity extends BaseActivity {
                 break;
             case HandlerWhat.PAY_ALLJOB_SUCCESS:
                 showMsg(String.valueOf(msg.obj));
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(0);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(1);
+                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(2);
                 break;
             case HandlerWhat.PAY_SINGLEJOB_SUCCESS:
                 showMsg(String.valueOf(msg.obj));
@@ -176,7 +180,7 @@ public class PayCoinActivity extends BaseActivity {
                 }
             }
             if (jobPlanner == null) {
-                showMsg("请至少选择一个计划员！");
+                showMsg("请至少选择一个方案员！");
                 return;
             }
             Jc11x5Factory.getInstance().paySingleJob(mHandler, userInfo.getUserName(), jobPrice.getDays(), jobPlanner.getUserId() );

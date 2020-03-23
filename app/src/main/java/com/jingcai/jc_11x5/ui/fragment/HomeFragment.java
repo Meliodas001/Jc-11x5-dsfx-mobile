@@ -17,16 +17,14 @@ import android.widget.Toast;
 import com.jingcai.jc_11x5.R;
 import com.jingcai.jc_11x5.app.App;
 import com.jingcai.jc_11x5.business.Jc11x5Factory;
+import com.jingcai.jc_11x5.business.impl.WebSocketServer;
 import com.jingcai.jc_11x5.consts.Constants;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.consts.ReturnStatus;
 import com.jingcai.jc_11x5.entity.ResultBean;
 import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
-import com.jingcai.jc_11x5.ui.activity.MonthTopProfitActivity;
-import com.jingcai.jc_11x5.ui.activity.PlanDetailActivity;
-import com.jingcai.jc_11x5.ui.activity.SeasonTopProfitActivity;
-import com.jingcai.jc_11x5.ui.activity.WeekTopProfitActivity;
+import com.jingcai.jc_11x5.ui.activity.*;
 import com.jingcai.jc_11x5.util.CaiUtil;
 import com.jingcai.jc_11x5.view.adapter.RvHomeAdapter;
 import com.jingcai.jc_11x5.view.widget.ProgressWidget;
@@ -160,6 +158,12 @@ public class HomeFragment extends BaseFragment {
                         resultBean.setLotteryPlanList(lists);
                         recyclerAdapter.notifyItemChanged(4);
                     }
+                    break;
+                case HandlerWhat.GET_HOMEDATA_FALIURE:
+                    if (msg.obj != null) {
+                        showMsg(String.valueOf(msg.obj));
+                    }
+                    startNewActivity(mContext, LoginActivity.class);
                     break;
                 default:
                     if (msg.obj != null) {

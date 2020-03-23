@@ -10,7 +10,7 @@ public class SystemSetting implements Serializable {
 
     private String id; //
     private String initCoin; //初始化赠送积分数量
-    private String platRatio; //计划分润比例
+    private String platRatio; //方案分润比例
     private String reserved1; //预留1
     private String reserved2; //预留2
 

@@ -242,7 +242,7 @@ public class CaiUtil {
         if(ctime < ksTime){
             return 0;
         }
-        int qs = (int)(ctime - ksTime) / (10*60*1000) + 1;
+        int qs = (int)(ctime - ksTime) / (20*60*1000) + 1;
         return qs;
     }
 
@@ -259,12 +259,12 @@ public class CaiUtil {
             String nextQ = riqi.substring(2);
             return nextQ + "01";
         }
-        if(ctime < ksTime){
+        /*if(ctime < ksTime){
             String riqi = DateUtil.getCurrentDate().replaceAll("-", "");
             String currentQ = riqi.substring(2);
             return currentQ + "01";
-        }
-        int qs = (int)(ctime - ksTime) / (10*60*1000) + 1;
+        }*/
+        int qs = Integer.parseInt(lottery.getCount()) - (int)((jsTime - ctime) / (20*60*1000));
         if(qs == Integer.parseInt(lottery.getCount())){
             String riqi = DateUtil.getMingtianDate().replaceAll("-", "");
             String nextQ = riqi.substring(2);
@@ -276,7 +276,7 @@ public class CaiUtil {
         if(qs<10){
             nextorder.append(nextQ).append("0").append(qs+1);
         }else{
-            nextorder.append(nextQ).append(qs+1);
+            nextorder.append(nextQ).append(qs);
         }
         return nextorder.toString();
     }
@@ -291,13 +291,13 @@ public class CaiUtil {
         }
         if (ctime < ksTime) {
             long t = ksTime - ctime;
-            if(t > 10*60*1000){
+            if(t > 20*60*1000){
                 return -1;
             }
             return ksTime - ctime;
         } else {
-            long kjsj = (ctime - ksTime) % (10 * 60 * 1000);
-            return  10 * 60 * 1000 - kjsj;
+            long kjsj = (ctime - ksTime) % (20 * 60 * 1000);
+            return  20 * 60 * 1000 - kjsj;
         }
     }
 

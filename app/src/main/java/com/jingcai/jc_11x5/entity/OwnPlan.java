@@ -3,7 +3,7 @@ package com.jingcai.jc_11x5.entity;
 import java.io.Serializable;
 
 /**
- * 用户已付费计划表（此表用于查询用）
+ * 用户已付费方案表（此表用于查询用）
  * Created by yangsen on 2018/1/15.
  */
 

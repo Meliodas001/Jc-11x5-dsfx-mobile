@@ -2,12 +2,18 @@ package com.jingcai.jc_11x5.util;
 
 import android.text.TextUtils;
 
+import android.util.Log;
 import com.alibaba.fastjson.JSONObject;
+import com.jingcai.jc_11x5.app.App;
+import com.jingcai.jc_11x5.entity.Lottery;
+import com.jingcai.jc_11x5.entity.UserInfo;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by yangsen on 2016/7/20.
@@ -27,7 +33,24 @@ public class DateUtil {
      * @return
      */
     public static String getCurrentDate(){
-        return formatterToDateByHms(System.currentTimeMillis());
+        long time = System.currentTimeMillis();
+        Lottery l = App.getInstance().getLottery();
+        if (l.getCaiType().equals("sh")) {
+            Field[] fields = l.getClass().getDeclaredFields();
+            for (Field f: fields) {
+                if (f.getName().equals("jssj")) {
+                    Log.e("Lottery", f.getName());
+                    Date d = new Date(time);
+
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(d);
+                    c.add(Calendar.DATE, 1);
+
+                    time = c.getTimeInMillis();
+                }
+            }
+        }
+        return formatterToDateByHms(time);
     }
 
     /**
@@ -112,11 +135,12 @@ public class DateUtil {
             return null;
         }
     }
-    public static String formatToStr1(long time){
+    public static String formatToStr1(String seconds){
         try {
-            SimpleDateFormat format=new SimpleDateFormat("HH:mm:ss");
-            String result=format.format(new Date(time));
-            return result;
+            Long timeLong = Long.parseLong(seconds);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");//要转换的时间格式
+            String s = sdf.format(new Date(timeLong));
+            return s;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -206,7 +230,7 @@ public class DateUtil {
     public static String getJsTime(String kssj, String qs){
         String ksrq = getCurrentDate() + " " + kssj;
         long ks = parseTimeToMillis(ksrq);
-        String js = formatterToDateAndTimeByHms(ks + 10*60*1000*(Integer.parseInt(qs)-1));
+        String js = formatterToDateAndTimeByHms(ks + 20*60*1000*(Integer.parseInt(qs)-1));
         js = js.substring(js.lastIndexOf(" ")+1, js.length());
         return js;
     }

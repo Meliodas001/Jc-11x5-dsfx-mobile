@@ -3,6 +3,7 @@ package com.jingcai.jc_11x5.app;
 import android.app.Activity;
 import android.app.Application;
 
+import com.jingcai.jc_11x5.business.impl.WebSocketServer;
 import com.jingcai.jc_11x5.db.SqliteHelper;
 import com.jingcai.jc_11x5.db.dao.KaiJiang_11x5Dao;
 import com.jingcai.jc_11x5.entity.KaiJiangTime;
@@ -13,6 +14,7 @@ import com.jingcai.jc_11x5.util.AppTool;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by yangsen on 2016/7/13.
@@ -32,6 +34,7 @@ public class App extends Application {
         if(user == null){
             user = new UserInfo(AppTool.getImei(getApplicationContext()));
         }
+
         if(activityList==null){
             activityList=new ArrayList<>();
         }else{
@@ -152,5 +155,4 @@ public class App extends Application {
     public void setLottery(Lottery lottery) {
         this.lottery = lottery;
     }
-
 }

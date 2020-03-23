@@ -95,6 +95,7 @@ public class TouZhuActivity extends BaseActivity {
     private Lottery lottery;
     private String postContent;
     private String checkPrice;
+    private String selectType;
 
     protected void initData() {
         Intent intent = getIntent();
@@ -108,6 +109,7 @@ public class TouZhuActivity extends BaseActivity {
                 //isSingle = bundle.getBoolean("isSingle");
                 postContent = bundle.getString("postContent");
                 checkPrice = bundle.getString("checkPrice");
+                selectType = bundle.getString("selectType");
             }
         }
         userInfo = App.getInstance().getUser();
@@ -150,7 +152,7 @@ public class TouZhuActivity extends BaseActivity {
         columnModel.setColumnWeight(5, 3);
         tbPlan.setColumnModel(columnModel);
 
-        SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(this, "序号", "期号", "倍数", "累积投入", "中奖盈利", "盈利率");
+        SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(this, "序号", "期号", "倍数", "累积投入", "正确盈利", "盈利率");
         simpleTableHeaderAdapter.setTextColor(ContextCompat.getColor(this, R.color.gray));
         simpleTableHeaderAdapter.setTextSize(13);
         simpleTableHeaderAdapter.setPaddingLeft(5);
@@ -180,7 +182,7 @@ public class TouZhuActivity extends BaseActivity {
     private void getDjs() {
         long ctime = DateUtil.getNowMills();//当前时间
         orderNo = CaiUtil.getCurrentPeriod();
-        if (ctime > jsTime) {
+        if (ctime > jsTime + 30000) {
             tvJzsj.setText("今天开奖已经结束！");
             mHandle.removeCallbacksAndMessages(null);
             return;
@@ -188,8 +190,8 @@ public class TouZhuActivity extends BaseActivity {
         if (ctime < ksTime) {
             dt = ksTime - ctime;
         } else {
-            long kjsj = (ctime - ksTime) % (10 * 60 * 1000);
-            dt = 10 * 60 * 1000 - kjsj;
+            long kjsj = (ctime - ksTime) % (20 * 60 * 1000);
+            dt = 20 * 60 * 1000 - kjsj;
         }
         if (orderNo >= Integer.parseInt(lottery.getCount())) {
             tvJzsj.setText("今天开奖已经结束！");
@@ -217,7 +219,7 @@ public class TouZhuActivity extends BaseActivity {
                     showMsg(String.valueOf(msg.obj));
                 }
                 btTouzhu.setClickable(true);
-                dialogWiget.showCustomMessage(this, "计划发布成功！");
+                dialogWiget.showCustomMessage(this, "方案发布成功！");
                 break;
             case HandlerWhat.GET_TZLIST_FALIURE:
             case HandlerWhat.GET_TZLIST_TIMEOUT:
@@ -236,14 +238,14 @@ public class TouZhuActivity extends BaseActivity {
                 formatter.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
                 String hms = formatter.format(dt);
                 if(tvJzsj!=null){
-                    tvJzsj.setText("距离第"+(orderNo+1)+"期："+hms);
+                    tvJzsj.setText("距离第下期："+hms);
                 }
                 mHandle.removeMessages(9);
                 //发送消息，不断减时间
                 mHandle.sendEmptyMessageDelayed(9, 1000);
                 if (dt <= 0) {
                     getDjs();
-                    Jc11x5Factory.getInstance().getLuckyNumber(mHandle, lottery.getCaiType());
+                    Jc11x5Factory.getInstance().getLuckyNumber(mHandle);
                 }
             case HandlerWhat.GET_LUCKYNUM_SUCCESS:
                 break;
@@ -306,11 +308,11 @@ public class TouZhuActivity extends BaseActivity {
         long ctime = DateUtil.getNowMills();//当前时间
         long nextTime = DateUtil.parseTimeToMillis(DateUtil.getMingtianDate()+" 00:00:00");
         if(ctime > jsTime && ctime < nextTime){
-            showMsg("今天开奖结束已停止投注!");
+            showMsg("今天开奖结束已停止详情内容!");
             return;
         }
         if(dt <= 60000){
-            showMsg("开奖前1分钟停止投注!");
+            showMsg("开奖前1分钟停止详情内容!");
             return;
         }
         if(Integer.parseInt(etZhqs.getText().toString()) > 1){
@@ -319,15 +321,17 @@ public class TouZhuActivity extends BaseActivity {
         String bCount = etBeishu.getText().toString();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("planName", leiXing);
-        jsonObject.put("caiType", userInfo.getCaizhongMc());//彩类型
+        jsonObject.put("caiType", userInfo.getCaizhong());//彩类型
         jsonObject.put("userId", userInfo.getId());//用户ID
-        jsonObject.put("planType", planType);//计划类型
+        jsonObject.put("planType", planType);//方案类型
         jsonObject.put("danBeiCount", Integer.parseInt(zhuShu));//单倍注数
-        jsonObject.put("sliderBonus", Double.parseDouble(danbeiJj));//单倍奖金
+        jsonObject.put("sliderBonus", Double.parseDouble(danbeiJj));//积分奖励
         jsonObject.put("checkPrice", checkPrice);//查看费用
         jsonObject.put("postContent", postContent);//选号
         jsonObject.put("beishu", bCount);//单倍的倍数
         jsonObject.put("isSingle", isSingle);//
+        jsonObject.put("selectType", selectType);
+        jsonObject.put("minlncome", etYingliLv.getText().toString());
         Jc11x5Factory.getInstance().okPlanPost(mHandle, jsonObject, tdFangAnAdapter.getData());
         btTouzhu.setClickable(false);
     }

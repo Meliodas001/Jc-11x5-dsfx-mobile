@@ -19,6 +19,7 @@ import com.jingcai.jc_11x5.business.Jc11x5Factory;
 import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
+import com.jingcai.jc_11x5.ui.MainActivity;
 import com.jingcai.jc_11x5.view.widget.ProgressWidget;
 
 import butterknife.Bind;

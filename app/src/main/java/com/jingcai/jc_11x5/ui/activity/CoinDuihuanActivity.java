@@ -19,6 +19,7 @@ import com.jingcai.jc_11x5.consts.HandlerWhat;
 import com.jingcai.jc_11x5.consts.ReturnStatus;
 import com.jingcai.jc_11x5.entity.UserInfo;
 import com.jingcai.jc_11x5.handler.LintHandler;
+import com.jingcai.jc_11x5.ui.MainActivity;
 import com.jingcai.jc_11x5.view.widget.ProgressWidget;
 
 import butterknife.Bind;
@@ -91,7 +92,8 @@ public class CoinDuihuanActivity extends BaseActivity {
                 String str = s.toString();
                 if(!TextUtils.isEmpty(str)){
                     int dianbi = Integer.parseInt(str);
-                    tvDhCoin.setText(String.valueOf(dianbi*Integer.getInteger(user.getIntegral())));
+                    int j = dianbi * Integer.parseInt(user.getIntegral());
+                    tvDhCoin.setText(String.valueOf(j));
                 }
             }
         });

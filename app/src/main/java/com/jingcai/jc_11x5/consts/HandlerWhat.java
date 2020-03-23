@@ -109,6 +109,7 @@ public class HandlerWhat {
     public static final int GET_USERINFOBYNAME_TIMEOUT = 2107;
     public static final int GET_USERINFOBYNAME_SUCCESS = 2108;
     public static final int GET_USERINFOBYNAME_FALIURE = 2109;
+    public static final int GET_USERINFO_SUCCESS = 2156;
 
 
     public static final int GET_USERINFOBYID_TIMEOUT = 2111;

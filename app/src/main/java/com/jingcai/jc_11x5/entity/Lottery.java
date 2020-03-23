@@ -1,6 +1,11 @@
 package com.jingcai.jc_11x5.entity;
 
+import android.text.TextUtils;
+import com.jingcai.jc_11x5.util.CaiUtil;
+import com.jingcai.jc_11x5.util.DateUtil;
+
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by yangsen on 2018/1/19.
@@ -19,14 +24,8 @@ public class Lottery implements Serializable {
     private String jiFen; //积分
     private String dianBi; //点币
     private String yue; //余额
+    private Boolean isNew; //是否为新对象
 
-    public String getYue() {
-        return yue;
-    }
-
-    public void setYue(String yue) {
-        this.yue = yue;
-    }
 
     public Lottery() {
     }
@@ -36,6 +35,33 @@ public class Lottery implements Serializable {
         this.kjsj = kjsj;
         this.jssj = jssj;
         this.count = count;
+    }
+
+    public Lottery(Map map, String caiType) {
+        this.caiQishu = map.get("issue").toString();
+        this.kjsj = (DateUtil.formatToStr1(map.get("endtime").toString()));
+        this.jssj = (DateUtil.formatToStr1(map.get("createTime").toString()));
+        this.count = map.get("number").toString();
+        this.caiType = caiType;
+        this.caiTypeMc = CaiUtil.getCaiMcShort(caiType);
+        this.caiNumber = map.get("code").toString();
+        this.caiNumArray = map.get("code").toString().split(" ");
+    }
+
+    public Boolean getNew() {
+        return isNew;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
+    }
+
+    public String getYue() {
+        return yue;
+    }
+
+    public void setYue(String yue) {
+        this.yue = yue;
     }
 
     public String getCaiType() {

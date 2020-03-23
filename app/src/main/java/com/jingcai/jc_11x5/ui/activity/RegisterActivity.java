@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -60,8 +61,8 @@ public class RegisterActivity extends BaseActivity {
     TextView tvDenglu;
     @Bind(R.id.tv_fuwu)
     TextView tvFuwu;
-    @Bind(R.id.iv_qq)
-    ImageView ivQq;
+    /*@Bind(R.id.rg_qq)
+    ImageView ivQqq;*/
     @Bind(R.id.et_nick_name)
     EditText etNickName;
     @Bind(R.id.et_share_no)
@@ -137,7 +138,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String phone = etPhone.getText().toString();
-                Jc11x5Factory.getInstance().getMassgeCode(handler, phone);
+                Jc11x5Factory.getInstance().getMassgeCode(handler, phone, 1);
                 etGetCode.setEnabled(true);
                 mTimer.start();
             }
@@ -237,11 +238,18 @@ public class RegisterActivity extends BaseActivity {
         btnZhuce.setClickable(false);
         handler.removeCallbacksAndMessages(null);
         ProgressWidget.showProgressDialog(this, "正在加载中...");
+        String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+        user.setMac(ANDROID_ID);
         Jc11x5Factory.getInstance().register(handler, user);
     }
 
     private void zaiXianGouMai() {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_QQ)));
+//        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_QQ)));
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_QQ)));
+        } catch (Exception e){
+            showMsg("请检查是否安装QQ！");
+        }
     }
 
     @OnClick(R.id.tv_denglu)
@@ -255,9 +263,9 @@ public class RegisterActivity extends BaseActivity {
         dialogWiget.showFuwuTiaokuan(this, "最终用户许可协议");
     }
 
-    @OnClick(R.id.iv_qq)
-    public void onIvQqClicked() {
+    /*@OnClick(R.id.rg_qq)
+    public void onIvQqqClicked() {
         zaiXianGouMai();
-    }
+    }*/
 
 }

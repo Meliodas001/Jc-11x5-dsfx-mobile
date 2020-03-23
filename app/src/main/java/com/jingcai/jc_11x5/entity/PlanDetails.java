@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Hashtable;
 
 /**
- * 用户计划详情
+ * 用户方案详情
  * Created by yangsen on 2018/1/15.
  */
 
@@ -15,18 +15,18 @@ public class PlanDetails implements Serializable{
 
     private Integer Id; //
     private String lotteryType; //彩种
-    private String PlanId; //计划编号
+    private String PlanId; //方案编号
     private String beginOrder; //期号
     private Integer Multiple; //倍数
     private Integer Bonus; //奖金
     private Integer Cost; //成本
     private Integer LeiCost; //累计成本
     private Integer TotalCost; //总成本
-    private Integer PlanType; //计划类型
+    private Integer PlanType; //方案类型
     private Integer DanBeiCount; //单倍注数
-    private String PlanContent; //计划内容
-    private String State; //中奖情况
-    private Integer OneBonus; //单倍奖金
+    private String PlanContent; //方案内容
+    private String State; //正确情况
+    private Integer OneBonus; //积分奖励
     private Integer Sequence; //顺序
     private boolean IsEnd; //是最后一期
     private String LuckyNum; //开奖奖号

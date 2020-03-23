@@ -12,7 +12,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 首页计划列表adapter
+ * 首页方案列表adapter
  */
 public class LvLotteryPlanAdapter extends PoweredAdapter<ResultBean.LotteryPlan> {
 
@@ -40,10 +40,10 @@ public class LvLotteryPlanAdapter extends PoweredAdapter<ResultBean.LotteryPlan>
         vh.tvPlanMc.setText(item.getPlanName());
         int state = item.getState();
         if(state == 1){
-            vh.tvJhzt.setText("中奖");
+            vh.tvJhzt.setText("正确");
             vh.tvJhzt.setTextColor(context.getResources().getColor(R.color.red));
         }else if(state == 2){
-            vh.tvJhzt.setText("未中");
+            vh.tvJhzt.setText("错误");
             vh.tvJhzt.setTextColor(context.getResources().getColor(R.color.gray));
         }else{
             vh.tvJhzt.setText("进行中");

@@ -3,7 +3,7 @@ package com.jingcai.jc_11x5.entity;
 import java.io.Serializable;
 
 /**
- * 用户计划表
+ * 用户方案表
  * Created by yangsen on 2018/1/15.
  */
 
@@ -12,20 +12,20 @@ public class PlanInfo implements Serializable {
     private String id; //
     private String caiType; //彩种
     private String userId; //用户ID
-    private String planName; //计划名称
-    private String planContent; //计划签名
+    private String planName; //方案名称
+    private String planContent; //方案签名
     private Integer visType; //显示级别 1完全公开  2：任意支付公开  3：只允许点币支付  4永远隐藏，5已支付, 6.包月
-    private String beginOrder; //计划起始期号
-    private String endOrder; //计划结束期号
-    private Integer orderTotal; //计划总期数
+    private String beginOrder; //方案起始期号
+    private String endOrder; //方案结束期号
+    private Integer orderTotal; //方案总期数
     private Integer currentOrder; //当前进度
-    private Integer state; //中奖状态 1中奖 2未中3未开
+    private Integer state; //正确状态 1正确 2错误3未开
     private String multiples; //倍数情况 按照 1-1-2-3格式
-    private Integer planType; //计划类型 1任选二  2任选三  3 任选四 4 任选五 5任选六 6任选七 7任选八 8前二直选 9前二组选 10前三直选 11前三组选
+    private Integer planType; //方案类型 1任选二  2任选三  3 任选四 4 任选五 5任选六 6任选七 7任选八 8前二直选 9前二组选 10前三直选 11前三组选
     private Integer zhuCount; //注数
-    private String finishTime; //计划完成时间
+    private String finishTime; //方案完成时间
     private Integer minIncome; //单注奖金金额
-    private boolean planFinish; //计划是否完成
+    private boolean planFinish; //方案是否完成
     private Integer totalCost; //总成本
     private Integer checkPrice; //查看费用
     private String nickName;

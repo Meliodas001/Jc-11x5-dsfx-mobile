@@ -205,17 +205,17 @@ public class ProfitJsActivity extends BaseActivity{
     public void onBtnJisuanClicked() {
         String tzzs = etZhushu.getText().toString();
         if(TextUtils.isEmpty(tzzs)){
-            showMsg("请填写投注注数！");
+            showMsg("请填写详情内容注数！");
             return;
         }
         String jhqs = etQishu.getText().toString();
         if(TextUtils.isEmpty(jhqs)){
-            showMsg("请填写计划期数！");
+            showMsg("请填写方案期数！");
             return;
         }
         String tzbs = etBeishu.getText().toString();
         if(TextUtils.isEmpty(tzbs)){
-            showMsg("请填写投注倍数！");
+            showMsg("请填写详情内容倍数！");
             return;
         }
         String yingli = etShouyi.getText().toString();

@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_16"
             android:textColor="@color/gray"
-            android:text="app桌面名称由“五彩中奖助手”改为：“无忧玩家”"/>
+            android:text="无忧玩家"/>
     </LinearLayout>
 
 </LinearLayout>

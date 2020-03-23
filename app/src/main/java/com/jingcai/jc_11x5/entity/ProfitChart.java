@@ -8,7 +8,7 @@ public class ProfitChart {
 
     private String NickName;
     private Integer Bonus; // 利润
-    private Integer PlanCount; // 计划数
+    private Integer PlanCount; // 方案数
     private Integer Failure; // 失败数
     private double hitRate;//命中率
 

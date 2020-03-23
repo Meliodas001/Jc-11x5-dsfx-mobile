@@ -11,12 +11,12 @@ public class PlanChart implements Serializable {
 
     private String id; //
     private String userId; //
-    private String planId; //计划编号
-    private String planTime; //计划完成时间
+    private String planId; //方案编号
+    private String planTime; //方案完成时间
     private String cost; //成本
-    private String bonus; //中奖金额
+    private String bonus; //正确金额
     private String profit; //利润
-    private Integer state; //状态1：中奖2：未中奖
+    private Integer state; //状态1：正确2：未正确
 
     public String getId() {
         return id;

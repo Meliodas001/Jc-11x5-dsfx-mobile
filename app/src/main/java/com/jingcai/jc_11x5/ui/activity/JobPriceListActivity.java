@@ -137,7 +137,7 @@ public class JobPriceListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tvTitle.setText("包月价格列表");
+        tvTitle.setText("游戏卡列表");
         ivHeaderLeft.setVisibility(View.VISIBLE);
 
         /*llAll.setVisibility(View.VISIBLE);
