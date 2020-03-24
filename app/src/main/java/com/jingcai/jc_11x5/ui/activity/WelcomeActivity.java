@@ -217,6 +217,7 @@ public class WelcomeActivity extends BaseActivity {
             case HandlerWhat.LOGIN_SUCCESS:
                 WebSocketServer.getSocketClient();
                 WebSocketServer.sendMsg(App.getInstance().getUser().getCaizhong());
+                WebSocketServer.getConnection();
                 startNewActivity(WelcomeActivity.this, MainActivity.class);
                 finish();
                 break;

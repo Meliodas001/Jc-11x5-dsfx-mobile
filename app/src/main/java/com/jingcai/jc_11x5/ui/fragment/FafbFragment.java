@@ -448,26 +448,26 @@ public class FafbFragment extends BaseFragment {
     private void getDjs() {
         long ctime = DateUtil.getNowMills();//当前时间
         int orderNo = CaiUtil.getCurrentPeriod();
-        /*if (ctime > jsTime) {
+        if (ctime > jsTime) {
             if (tvDjs != null) {
                 tvDjs.setText("今天开奖已经结束");
             }
             mHandle.removeCallbacksAndMessages(null);
             return;
-        }*/
+        }
         if (ctime < ksTime) {
             dt = ksTime - ctime;
         } else {
             long kjsj = (ctime - ksTime) % (20 * 60 * 1000);
             dt = 20 * 60 * 1000 - kjsj;
         }
-        /*if (orderNo >= Integer.parseInt(lottery.getCount())) {
+        if (orderNo >= Integer.parseInt(lottery.getCount())) {
             if (tvDjs != null) {
                 tvDjs.setText("今天开奖已经结束");
             }
             mHandle.removeCallbacksAndMessages(null);
             return;
-        }*/
+        }
         //dt = 5000;
     }
 

@@ -1772,7 +1772,7 @@ public class Jc11x5Thread implements Jc11x5Interface {
                     planDetails.setBonus(sliderBonus);
                     boolean isSingle = json.getBoolean("isSingle");
                     if (isSingle) {//单期购买
-                        plan.setEndOrder(String.valueOf(Integer.parseInt(App.getInstance().getLottery().getCaiQishu()) + 1));
+                        plan.setEndOrder(nextQ);
                         plan.setOrderTotal(1);
                         int beishu = json.getInteger("beishu");
                         plan.setMultiples(String.valueOf(beishu));

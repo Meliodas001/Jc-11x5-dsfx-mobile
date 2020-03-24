@@ -251,20 +251,20 @@ public class CaiUtil {
         if(lottery == null){
             return "";
         }
-        long ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate()+" "+ lottery.getKjsj());//第一期开始时间
+//        long ksTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate()+" "+ lottery.getKjsj());//第一期开始时间
         long jsTime = DateUtil.parseTimeToMillis(DateUtil.getCurrentDate()+" "+ lottery.getJssj());//最后一期开始时间
         long ctime = DateUtil.getNowMills();//当前时间
-        if(ctime > jsTime){
+        /*if(ctime > jsTime){
             String riqi = DateUtil.getMingtianDate().replaceAll("-", "");
             String nextQ = riqi.substring(2);
             return nextQ + "01";
         }
-        /*if(ctime < ksTime){
+        if(ctime < ksTime){
             String riqi = DateUtil.getCurrentDate().replaceAll("-", "");
             String currentQ = riqi.substring(2);
             return currentQ + "01";
         }*/
-        int qs = Integer.parseInt(lottery.getCount()) - (int)((jsTime - ctime) / (20*60*1000));
+        int qs = Integer.parseInt(lottery.getCaiQishu().substring(6));
         if(qs == Integer.parseInt(lottery.getCount())){
             String riqi = DateUtil.getMingtianDate().replaceAll("-", "");
             String nextQ = riqi.substring(2);
@@ -276,7 +276,7 @@ public class CaiUtil {
         if(qs<10){
             nextorder.append(nextQ).append("0").append(qs+1);
         }else{
-            nextorder.append(nextQ).append(qs);
+            nextorder.append(nextQ).append(qs+1);
         }
         return nextorder.toString();
     }

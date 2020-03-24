@@ -40,7 +40,7 @@ public class Lottery implements Serializable {
     public Lottery(Map map, String caiType) {
         this.caiQishu = map.get("issue").toString();
         this.kjsj = (DateUtil.formatToStr1(map.get("endtime").toString()));
-        this.jssj = (DateUtil.formatToStr1(map.get("createTime").toString()));
+        this.jssj = (DateUtil.formatToStr1(map.get("jsTime").toString()));
         this.count = map.get("number").toString();
         this.caiType = caiType;
         this.caiTypeMc = CaiUtil.getCaiMcShort(caiType);

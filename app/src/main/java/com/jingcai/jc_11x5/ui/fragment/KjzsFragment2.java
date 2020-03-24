@@ -315,22 +315,22 @@ public class KjzsFragment2 extends BaseFragment implements AbsListView.OnScrollL
     private void getDjs() {
         long ctime = DateUtil.getNowMills();//当前时间
         int orderNo = CaiUtil.getCurrentPeriod();
-        /*if (ctime > jsTime + 30000) {
+        if (ctime > jsTime + 30000) {
             tvKjsj.setText("今天开奖已经结束！");
             mHandle.removeCallbacksAndMessages(null);
             return;
-        }*/
+        }
         if (ctime < ksTime) {
             dt = ksTime - ctime;
         } else {
             long kjsj = (ctime - ksTime) % (20 * 60 * 1000);
             dt = 20 * 60 * 1000 - kjsj;
         }
-        /*if (orderNo >= Integer.parseInt(lottery.getCount())) {
+        if (orderNo >= Integer.parseInt(lottery.getCount())) {
             tvKjsj.setText("今天开奖已经结束！");
             mHandle.removeCallbacksAndMessages(null);
             return;
-        }*/
+        }
     }
 
     @Override

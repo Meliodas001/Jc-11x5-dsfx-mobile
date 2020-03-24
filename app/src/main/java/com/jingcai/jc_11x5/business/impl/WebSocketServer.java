@@ -85,11 +85,16 @@ public class WebSocketServer{
         }
     }
 
+    public static void getConnection() {
+        mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);//开启心跳检测
+    }
+
     private static final long HEART_BEAT_RATE = 10 * 1000;//每隔10秒进行一次对长连接的心跳检测
-    private Handler mHandler = new Handler();
-    private Runnable heartBeatRunnable = new Runnable() {
+    private static Handler mHandler = new Handler();
+    private static Runnable heartBeatRunnable = new Runnable() {
         @Override
         public void run() {
+//            Log.e("JWebSocketClientService", "开启心跳检测");
             if (client != null) {
                 if (client.isClosed()) {
                     reconnectWs();
@@ -106,7 +111,7 @@ public class WebSocketServer{
     /**
      * 开启重连
      */
-    private void reconnectWs() {
+    private static void reconnectWs() {
         mHandler.removeCallbacks(heartBeatRunnable);
         new Thread() {
             @Override
