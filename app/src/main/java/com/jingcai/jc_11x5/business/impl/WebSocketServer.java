@@ -28,8 +28,9 @@ public class WebSocketServer{
             public void onMessage(String message) {
 //                Log.e("JWebSocketClientService", "收到的消息：" + message);
                 App app = App.getInstance();
-                Map map = JSON.parseObject(message, HashMap.class);
-                Lottery lottery = new Lottery(map, App.getInstance().getUser().getCaizhong());
+                Map mapResult = JSON.parseObject(message, HashMap.class);
+                Map map = JSON.parseObject(mapResult.get(app.getUser().getCaizhong()).toString(), HashMap.class);
+                Lottery lottery = new Lottery(map, app.getUser().getCaizhong());
                 if (app.getLottery() != null) {
                     if (lottery.getCaiNumber().equals(app.getLottery().getCaiNumber()))
                         lottery.setNew(false);
