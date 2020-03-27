@@ -1093,12 +1093,12 @@ public class Jc11x5Thread implements Jc11x5Interface {
                         UserInfo u = App.getInstance().getUser();
                         u.setBalance(String.valueOf((Double.parseDouble(u.getBalance()) - Double.parseDouble(price))));
                         u.setMoney(String.valueOf(Double.parseDouble(u.getMoney()) + Double.parseDouble(price)*Integer.parseInt(u.getGame())));
-                        handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_SUCCESS, map.get("message"));
+                        handlerSendMsg(handler, HandlerWhat.GET_MONEYCONVERSION_SUCCESS, map.get("message"));
                     } else {
-                        handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_FALIURE, map.get("message"));
+                        handlerSendMsg(handler, HandlerWhat.GET_MONEYCONVERSION_FALIURE, map.get("message"));
                     }
                 } catch (Exception e) {
-                    handlerSendMsg(handler, HandlerWhat.GET_COINCONVERSION_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
+                    handlerSendMsg(handler, HandlerWhat.GET_MONEYCONVERSION_FALIURE, ReturnStatus.DESCRIPT_CONNECT_FAILURE);
                 }
             }
         }).start();

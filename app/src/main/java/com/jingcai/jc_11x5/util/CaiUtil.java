@@ -271,6 +271,7 @@ public class CaiUtil {
             return nextQ + "01";
         }
         String riqi = DateUtil.getCurrentDate().replaceAll("-", "");
+        if (lottery.getCaiType().equals("sh")) riqi = String.valueOf(Integer.parseInt(riqi) - 1);
         String nextQ = riqi.substring(2);
         StringBuilder  nextorder = new StringBuilder();
         if(qs<10){

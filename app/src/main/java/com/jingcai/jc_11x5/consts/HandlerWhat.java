@@ -97,6 +97,9 @@ public class HandlerWhat {
     public static final int GET_COINCONVERSION_SUCCESS = 2092;
     public static final int GET_COINCONVERSION_FALIURE = 2093;
 
+    public static final int GET_MONEYCONVERSION_SUCCESS = 3092;
+    public static final int GET_MONEYCONVERSION_FALIURE = 3093;
+
     public static final int GET_LUCKYNUM_TIMEOUT = 2096;
     public static final int GET_LUCKYNUM_SUCCESS = 2097;
     public static final int GET_LUCKYNUM_FALIURE = 2098;

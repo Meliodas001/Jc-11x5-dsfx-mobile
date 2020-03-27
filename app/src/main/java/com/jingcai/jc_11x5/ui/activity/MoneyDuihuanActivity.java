@@ -99,25 +99,19 @@ public class MoneyDuihuanActivity extends BaseActivity {
 
     private void handlerMsg(Message msg) {
         switch (msg.what) {
-            case HandlerWhat.GET_COINCONVERSION_SUCCESS:
+            case HandlerWhat.GET_MONEYCONVERSION_SUCCESS:
                 if (msg.obj != null) {
                     showMsg(String.valueOf(msg.obj));
                 }
-                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(0);
-                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(1);
-                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(2);
                 ProgressWidget.dismissProgressDialog();
                 Jc11x5Factory.getInstance().getUserInfoByUserName(mHandler, user.getUserName());
                 break;
             case HandlerWhat.GET_USERINFOBYNAME_SUCCESS:
                 user = app.getUser();
-                tvCaibi.setText(user.getMoney());
-                tvJifen.setText("无忧币："+user.getBalance());
+                tvCaibi.setText(user.getBalance());
+                tvJifen.setText("无忧币："+user.getMoney());
                 etDhCaibi.setText("");
                 tvDhCoin.setText("");
-                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(0);
-                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(1);
-                ((MainActivity) getBaseContext().getApplicationContext()).removeFragment(2);
                 ProgressWidget.dismissProgressDialog();
                 break;
             default:
