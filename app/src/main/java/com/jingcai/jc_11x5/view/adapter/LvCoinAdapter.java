@@ -62,16 +62,25 @@ public class LvCoinAdapter extends PoweredAdapter<CoinChangeRecord> {
                 text = "充值";
                 break;
             case 3:
-                text = "详情内容";
+                text = "自助兑换";
                 break;
             case 4:
-                text = "正确";
+                text = "购买方案";
                 break;
             case 5:
-                text = "赠送";
+                text = "购买套餐";
                 break;
             case 6:
-                text = "自助兑换";
+                text = "游戏币转出";
+                break;
+            case 7:
+                text = "游戏币转入";
+                break;
+            case 8:
+                text = "详情内容";
+                break;
+            case 9:
+                text = "正确";
                 break;
         }
         return text;
