@@ -41,7 +41,8 @@ public class LvJobPriceAdapter extends PoweredAdapter<JobPrice> {
 
 //        vh.tvJobType.setText(getTypeMc(item.getState()) + " " + item.getDays() + " 天");
         vh.tvJobType.setText(item.getDays() + " 天卡");
-        vh.tvPrice.setText(item.getPrice() + " 无忧币");
+        vh.tvPrice.setText(item.getPrice());
+        vh.tvCoin.setText(item.getMoney());
         vh.tvPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +69,8 @@ public class LvJobPriceAdapter extends PoweredAdapter<JobPrice> {
         TextView tvPrice;
         @Bind(R.id.tv_pay)
         TextView tvPay;
+        @Bind(R.id.tv_coin)
+        TextView tvCoin;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

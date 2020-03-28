@@ -30,6 +30,17 @@
         android:textSize="@dimen/text_size_14" />
 
     <TextView
+            android:id="@+id/tv_coin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="100无忧币"
+            android:textSize="@dimen/text_size_14" />
+
+    <TextView
         android:id="@+id/tv_pay"
         android:background="@drawable/bg_btn_orange_3"
         android:layout_width="@dimen/layout_width_85"
